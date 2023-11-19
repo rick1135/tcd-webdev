@@ -21,10 +21,10 @@ public class PersistenceTestServlet extends HttpServlet {
 	private EntityManager entityManager;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		Usuario usuario = new Usuario("TestUser", "test@example.com", "password", TipoPerfil.Candidato);
+		Usuario usuario = new Usuario("Test", "test@test.com", "1234", TipoPerfil.Candidato);
 		entityManager.persist(usuario);
 
-		response.getWriter().println("Dados de teste persistidos com sucesso!");
+		response.getWriter().println("Dados inseridos com sucesso!");
 	}
 
 }
