@@ -14,12 +14,13 @@ import model.Usuario;
 
 @WebServlet("/PersistenceTests")
 public class PersistenceTestServlet extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Inject
 	private EntityManager entityManager;
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Usuario usuario = new Usuario("Test", "test@test.com", "1234", TipoPerfil.Candidato);
 		entityManager.persist(usuario);

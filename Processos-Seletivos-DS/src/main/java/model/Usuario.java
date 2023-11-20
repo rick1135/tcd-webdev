@@ -8,6 +8,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Usuario {
@@ -20,6 +22,10 @@ public class Usuario {
 
 	@Enumerated(EnumType.STRING)
 	private TipoPerfil perfil;
+	
+	@ManyToOne
+	@JoinColumn(name = "processo_seletivo_id")
+	private ProcessoSeletivo processoSeletivo;
 
 	public Usuario() {
 	}
@@ -80,9 +86,7 @@ public class Usuario {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		Usuario other = (Usuario) obj;
 		return id == other.id;

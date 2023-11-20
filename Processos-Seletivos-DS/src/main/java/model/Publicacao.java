@@ -20,13 +20,13 @@ public class Publicacao {
 	private String conteudo;
 	private Date dataPublicacao;
 	private Date dataEdicao;
-	
+
 	@Enumerated(EnumType.STRING)
 	private TipoPublicacao tipo;
-	
+
 	@ManyToOne
 	private Usuario autor;
-	
+
 	private String linkTwitter;
 
 	public int getId() {
@@ -102,9 +102,7 @@ public class Publicacao {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		Publicacao other = (Publicacao) obj;
 		return id == other.id;
@@ -114,6 +112,6 @@ public class Publicacao {
 	public String toString() {
 		return "Publicacao [id=" + id + "]";
 	}
-	
-	
+
+
 }

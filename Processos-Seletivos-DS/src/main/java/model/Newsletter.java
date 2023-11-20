@@ -50,9 +50,7 @@ public class Newsletter {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		Newsletter other = (Newsletter) obj;
 		return id == other.id;
@@ -61,6 +59,6 @@ public class Newsletter {
 	public String toString() {
 		return "Newsletter [id=" + id + "]";
 	}
-	
-	
+
+
 }

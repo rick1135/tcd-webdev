@@ -10,27 +10,34 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class ProcessoSeletivo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private String nome;
 	private boolean status;
+	
+	@Temporal(TemporalType.DATE)
 	private Date dataInicio;
+	
+	@Temporal(TemporalType.DATE)
 	private Date dataFim;
+	
     private String linkEdital;
-    
+
     @OneToMany(mappedBy = "processoSeletivo")
     private List<Resultado> resultados;
-    
+
     @Enumerated(EnumType.STRING)
     private TipoPerfil tipoperfil;
-    
-    @ManyToMany(mappedBy = "processosSeletivos")
+
+    @OneToMany(mappedBy = "processoSeletivo")
     private List<Usuario> candidatos;
 
 	public int getId() {
@@ -114,9 +121,7 @@ public class ProcessoSeletivo {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		ProcessoSeletivo other = (ProcessoSeletivo) obj;
 		return id == other.id;
@@ -126,6 +131,6 @@ public class ProcessoSeletivo {
 	public String toString() {
 		return "ProcessoSeletivo [id=" + id + "]";
 	}
-    
-    
+
+
 }
