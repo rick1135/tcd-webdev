@@ -21,6 +21,40 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
+    
+    <security-role>
+        <description>System administrator</description>
+        <role-name>admin</role-name>
+    </security-role>
+    
+    <security-role>
+        <description>Common authenticated user</description>
+        <role-name>user</role-name>
+    </security-role>
+    
+    <security-constraint>
+        <display-name>Admin Role</display-name>
+        <web-resource-collection>
+            <web-resource-name>All App Pages</web-resource-name>
+            <url-pattern>/app/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <security-constraint>
+        <display-name>User Role</display-name>
+        <web-resource-collection>
+            <web-resource-name>Profile Page</web-resource-name>
+            <url-pattern>/app/index.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+            <role-name>user</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
     <session-config>
         <session-timeout>
             30
@@ -28,5 +62,11 @@
     </session-config>
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
+        <welcome-file>faces/login.xhtml</welcome-file>
     </welcome-file-list>
+    
+    <error-page>
+        <error-code>403</error-code>
+        <location>/WEB-INF/forbidden.xhtml</location>
+    </error-page>
 </web-app>

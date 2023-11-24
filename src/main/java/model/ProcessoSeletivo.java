@@ -1,137 +1,136 @@
 package model;
 
+import java.io.Serializable;
 import model.usuario.Usuario;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class ProcessoSeletivo {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	
-	private String nome;
-	private boolean status;
-	
-	@Temporal(TemporalType.DATE)
-	private Date dataInicio;
-	
-	@Temporal(TemporalType.DATE)
-	private Date dataFim;
-	
+public class ProcessoSeletivo implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    private String nome;
+    private boolean status;
+
+    @Temporal(TemporalType.DATE)
+    private Date dataInicio;
+
+    @Temporal(TemporalType.DATE)
+    private Date dataFim;
+
     private String linkEdital;
 
-    @OneToMany(mappedBy = "processoSeletivo")
-    private List<Resultado> resultados;
-
-    @Enumerated(EnumType.STRING)
-    private TipoPerfil tipoperfil;
-
-    @OneToMany(mappedBy = "processoSeletivo")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "usuario_id")
     private List<Usuario> candidatos;
 
-	public int getId() {
-		return id;
-	}
+    public ProcessoSeletivo() {
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public ProcessoSeletivo(int id, String nome, boolean status, Date dataInicio, Date dataFim, String linkEdital, List<Usuario> candidatos) {
+        this.id = id;
+        this.nome = nome;
+        this.status = status;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+        this.linkEdital = linkEdital;
+        this.candidatos = candidatos;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public boolean isStatus() {
-		return status;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public Date getDataInicio() {
-		return dataInicio;
-	}
+    public boolean isStatus() {
+        return status;
+    }
 
-	public void setDataInicio(Date dataInicio) {
-		this.dataInicio = dataInicio;
-	}
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
-	public Date getDataFim() {
-		return dataFim;
-	}
+    public Date getDataInicio() {
+        return dataInicio;
+    }
 
-	public void setDataFim(Date dataFim) {
-		this.dataFim = dataFim;
-	}
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
+    }
 
-	public String getLinkEdital() {
-		return linkEdital;
-	}
+    public Date getDataFim() {
+        return dataFim;
+    }
 
-	public void setLinkEdital(String linkEdital) {
-		this.linkEdital = linkEdital;
-	}
+    public void setDataFim(Date dataFim) {
+        this.dataFim = dataFim;
+    }
 
-	public List<Resultado> getResultados() {
-		return resultados;
-	}
+    public String getLinkEdital() {
+        return linkEdital;
+    }
 
-	public void setResultados(List<Resultado> resultados) {
-		this.resultados = resultados;
-	}
+    public void setLinkEdital(String linkEdital) {
+        this.linkEdital = linkEdital;
+    }
 
-	public TipoPerfil getTipoperfil() {
-		return tipoperfil;
-	}
+    public List<Usuario> getCandidatos() {
+        return candidatos;
+    }
 
-	public void setTipoperfil(TipoPerfil tipoperfil) {
-		this.tipoperfil = tipoperfil;
-	}
+    public void setCandidatos(List<Usuario> candidatos) {
+        this.candidatos = candidatos;
+    }
 
-	public List<Usuario> getCandidatos() {
-		return candidatos;
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
-	public void setCandidatos(List<Usuario> candidatos) {
-		this.candidatos = candidatos;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if ((obj == null) || (getClass() != obj.getClass())) {
+            return false;
+        }
+        ProcessoSeletivo other = (ProcessoSeletivo) obj;
+        return id == other.id;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if ((obj == null) || (getClass() != obj.getClass()))
-			return false;
-		ProcessoSeletivo other = (ProcessoSeletivo) obj;
-		return id == other.id;
-	}
-
-	@Override
-	public String toString() {
-		return "ProcessoSeletivo [id=" + id + "]";
-	}
-
+    @Override
+    public String toString() {
+        return "ProcessoSeletivo [id=" + id + "]";
+    }
 
 }

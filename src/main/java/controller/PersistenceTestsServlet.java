@@ -1,13 +1,9 @@
 package controller;
 
 import java.io.IOException;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.TipoPerfil;
-import model.usuario.Usuario;
 
 /**
  *

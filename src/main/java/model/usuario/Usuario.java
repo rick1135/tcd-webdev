@@ -1,102 +1,148 @@
 package model.usuario;
 
+import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import model.ProcessoSeletivo;
-import model.TipoPerfil;
 
 @Entity
-public class Usuario {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	private String nome;
-	private String email;
-	private String senha;
+@Table(name = "usuario")
+@NamedQueries({
+    @NamedQuery(
+            name = "Usuario.all",
+            query = "select us from Usuario us "
+            + "order by us.id"),
+    @NamedQuery(
+            name = "Usuario.byUsername",
+            query = "select us from Usuario us "
+            + "where us.username = :username")
+})
+public class Usuario implements Serializable {
 
-	@Enumerated(EnumType.STRING)
-	private TipoPerfil perfil;
-	
-	@ManyToOne
-	@JoinColumn(name = "processo_seletivo_id")
-	private ProcessoSeletivo processoSeletivo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
 
-	public Usuario() {
-	}
+    @Column(name = "username", nullable = false)
+    private String username;
 
-	public Usuario(String nome, String email, String senha, TipoPerfil perfil) {
-		this.nome = nome;
-		this.email = email;
-		this.senha = senha;
-		this.perfil = perfil;
-	}
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
-	public int getId() {
-		return id;
-	}
+    @Column(name = "password", nullable = false)
+    private String password;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    @Column(name = "user_group", nullable = false)
+    private String group;
 
-	public String getNome() {
-		return nome;
-	}
+    @Column(name = "newsletter")
+    private boolean newsletter = false;
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    @Column(name = "processos_seletivos")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProcessoSeletivo> processosSeletivos;
 
-	public String getEmail() {
-		return email;
-	}
+    public Usuario() {
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public Usuario(String username, String email, String password, String group, List<ProcessoSeletivo> processoSeletivo) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.group = group;
+        this.processosSeletivos = processoSeletivo;
+    }
 
-	public String getSenha() {
-		return senha;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public TipoPerfil getPerfil() {
-		return perfil;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setPerfil(TipoPerfil perfil) {
-		this.perfil = perfil;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if ((obj == null) || (getClass() != obj.getClass()))
-			return false;
-		Usuario other = (Usuario) obj;
-		return id == other.id;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	@Override
-	public String toString() {
-		return "Usuario [id=" + id + "]";
-	}
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
+    public boolean isNewsletter() {
+        return newsletter;
+    }
+
+    public void setNewsletter(boolean newsletter) {
+        this.newsletter = newsletter;
+    }
+
+    public List<ProcessoSeletivo> getProcessosSeletivos() {
+        return processosSeletivos;
+    }
+
+    public void setProcessosSeletivos(List<ProcessoSeletivo> processosSeletivos) {
+        this.processosSeletivos = processosSeletivos;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if ((obj == null) || (getClass() != obj.getClass())) {
+            return false;
+        }
+        Usuario other = (Usuario) obj;
+        return id == other.id;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario [id=" + id + "]";
+    }
 
 }
