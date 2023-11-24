@@ -1,0 +1,12 @@
+controller\PersistenceTestsServlet.class
+model\ProcessoSeletivo.class
+model\TipoPublicacao.class
+util\CargaDadosBean.class
+util\CargaDadosBeanLocal.class
+model\TipoPerfil.class
+model\usuario\UsuarioBean.class
+model\usuario\UsuarioBeanLocal.class
+model\usuario\Usuario.class
+model\Publicacao.class
+model\Newsletter.class
+model\Resultado.class
