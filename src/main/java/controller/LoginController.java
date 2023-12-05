@@ -55,7 +55,7 @@ public class LoginController {
                 facesContext.responseComplete();
                 break;
             case SEND_FAILURE:
-                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid Credentials", null));
+                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Credenciais incorretas", null));
                 break;
             case SUCCESS:
                 getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/app/index.xhtml");

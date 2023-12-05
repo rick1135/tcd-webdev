@@ -1,7 +1,10 @@
 package controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Email;
@@ -19,6 +22,9 @@ public class CadastroController implements Serializable{
     
     @Inject
     DataServiceBeanLocal dataService;
+    
+    @Inject
+    FacesContext facesContext;
     
     private Usuario user;
     
@@ -60,13 +66,18 @@ public class CadastroController implements Serializable{
         this.user = user;
     }
     
-    public void cadastrar(){
+    public void cadastrar() throws IOException{
         this.setUser(dataService.createUser(this.nome, this.email, this.senha, "user", null));
+        getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/login.xhtml");
     }
 
     public void imprimeUsuario(){
         System.out.println(this.getUser());
         System.out.println(this.getUser().getUsername());
+    }
+    
+    private ExternalContext getExternalContext() {
+        return facesContext.getExternalContext();
     }
     
     public CadastroController() {
