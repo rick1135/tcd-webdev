@@ -4,6 +4,16 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    
+    <context-param>
+        <param-name>
+            javax.faces.WEBAPP_RESOURCES_DIRECTORY
+        </param-name>
+        <param-value>
+            /WEB-INF/resources
+        </param-value>
+    </context-param>
+    
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -38,8 +48,10 @@
     <security-constraint>
         <display-name>User Role</display-name>
         <web-resource-collection>
-            <web-resource-name>Profile Page</web-resource-name>
+            <web-resource-name>Página Inicio</web-resource-name>
             <url-pattern>/app/index.xhtml</url-pattern>
+            <web-resource-name>Página do Participante</web-resource-name>
+            <url-pattern>/app/participante.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>

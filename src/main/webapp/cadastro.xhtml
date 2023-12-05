@@ -1,6 +1,6 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+                xmlns:p="http://primefaces.org/ui" template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="title">Cadastro</ui:define>
     <ui:define name="content">
@@ -11,6 +11,12 @@
                     <p:outputLabel for="nome" styleClass="col-fixed flex justify-content-end" style="width:100px" value="Nome"/>
                     <div class="col">
                         <p:inputText id="nome" value="#{cadastroController.nome}" /> 
+                    </div>
+                </div>
+                <div class="field grid">
+                    <p:outputLabel for="email" styleClass="col-fixed flex justify-content-end" style="width:100px" value="Email"/>
+                    <div class="col">
+                        <p:inputText id="email" value="#{cadastroController.email}" /> 
                     </div>
                 </div>
                 <div class="field grid">
@@ -26,11 +32,14 @@
                     </div>
                 </div>
                 <div class="field grid flex justify-content-center">
-                    <p:commandButton update="@form" value="Save"/>
+                    <p:commandButton update="@form" value="Cadastrar" action="#{cadastroController.cadastrar}"/>
+                </div>
+                <div class="field grid flex justify-content-center">
+                    <p:commandButton update="@form" value="Imprime Usuario" action="#{cadastroController.imprimeUsuario}"/>
                 </div>
                 
                 <div class="max-w-25rem flex justify-content-center">
-                    <p:messages id="messages" showDetail="true" >
+                    <p:messages id="messages" showDetail="false" >
                         <p:autoUpdate/>
                     </p:messages>
                 </div>

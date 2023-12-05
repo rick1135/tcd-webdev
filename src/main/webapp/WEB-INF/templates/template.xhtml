@@ -14,7 +14,7 @@
             <meta name="apple-mobile-web-app-capable" content="yes" />
             <link rel="icon" href="#{request.contextPath}/resources/rain-layout/images/favicon.ico" type="image/x-icon"></link>
         </f:facet>
-        <title><ui:insert name="title">PrimeFaces Rain</ui:insert></title>
+        <title><ui:insert name="title">Processos Seletivos</ui:insert></title>
         <h:outputScript name="js/layout.js" library="rain-layout" />
         <h:outputScript name="js/prism.js" library="rain-layout"/>
         <h:outputScript name="sections.js" library="demo" />
@@ -22,9 +22,11 @@
     </h:head>
 
     <h:body styleClass="#{guestPreferences.inputStyleClass}">
-        <div class="layout-wrapper layout-topbar-#{guestPreferences.topbarTheme}" >
+        
+        <ui:debug hotkey="k"/>
+        
+        <div class="layout-wrapper layout-topbar-#{guestPreferences.topbarTheme}">
             <ui:include src="./topbar.xhtml"/>
-
             <div class="layout-main">    
                 <div class="layout-content">
                     <ui:insert name="content"/>
@@ -36,7 +38,6 @@
         <h:outputStylesheet name="css/primeicons.css" library="rain-layout" />
         <h:outputStylesheet name="css/primeflex.min.css" library="rain-layout" />
         <h:outputStylesheet name="css/layout-blue-light.css" library="rain-layout" />
-        <h:outputStylesheet name="css/demo-#{guestPreferences.darkMode}.css" library="demo" />
     </h:body>
 
 </html>

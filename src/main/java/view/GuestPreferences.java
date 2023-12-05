@@ -3,11 +3,11 @@ import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 
-@ManagedBean
+@Named
 @SessionScoped
 public class GuestPreferences implements Serializable {
 
@@ -58,6 +58,7 @@ public class GuestPreferences implements Serializable {
         layoutPrimaryColors.add(new LayoutPrimaryColor("Paradiso", "paradiso", "#3B9195"));
         layoutPrimaryColors.add(new LayoutPrimaryColor("Chambray", "chambray", "#3161BA"));
         layoutPrimaryColors.add(new LayoutPrimaryColor("Tapestry", "tapestry", "#924470"));
+        
     }
 
     public String getDarkMode() {
@@ -201,5 +202,4 @@ public class GuestPreferences implements Serializable {
             return this.color;
         }
     }
-
 }
