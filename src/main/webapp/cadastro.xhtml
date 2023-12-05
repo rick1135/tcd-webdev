@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Cadastro</ui:define>
+    <ui:define name="content">
+        <div class="card">
+            <h:form>
+                <h5 class="mt-0">Preencha os campos para realizar o cadastro</h5>
+                <div class="field grid">
+                    <p:outputLabel for="nome" styleClass="col-fixed flex justify-content-end" style="width:100px" value="Nome"/>
+                    <div class="col">
+                        <p:inputText id="nome" value="#{cadastroController.nome}" /> 
+                    </div>
+                </div>
+                <div class="field grid">
+                    <p:outputLabel for="pwd1" styleClass="col-fixed flex justify-content-end" style="width:100px" value="Senha"/>
+                    <div class="col">
+                        <p:password id="pwd1" value="#{cadastroController.senha}" match="pwd2" label="Password 1" required="true" feedback="true"/>
+                    </div>
+                </div>
+                <div class="field grid">
+                    <p:outputLabel for="pwd2" styleClass="col-fixed flex justify-content-end" style="width:100px" value="Confirme"/>
+                    <div class="col">
+                        <p:password id="pwd2" value="#{cadastroController.senha}" label="Password 2" required="true"/>
+                    </div>
+                </div>
+                <div class="field grid flex justify-content-center">
+                    <p:commandButton update="@form" value="Save"/>
+                </div>
+                
+                <div class="max-w-25rem flex justify-content-center">
+                    <p:messages id="messages" showDetail="true" >
+                        <p:autoUpdate/>
+                    </p:messages>
+                </div>
+
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
