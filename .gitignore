@@ -1,4 +1,6 @@
-/target/
+target/
+
+*.navdata
 
 # Compiled class file
 *.class
