@@ -238,6 +238,8 @@ PrimeFaces.widget.Rain = PrimeFaces.widget.BaseWidget.extend({
                     }
                 }
             }
+
+            $this.calculatePosition(submenu.get(0), item.get(0));
                                                 
             if(submenu.length) {
                 e.preventDefault();
@@ -277,7 +279,8 @@ PrimeFaces.widget.Rain = PrimeFaces.widget.BaseWidget.extend({
         
         this.menu.find('> li').on('mouseenter', function(e) {    
             if(($this.isHorizontal()|| $this.isSlim() || $this.isSlimPlus()) && $this.menuActive) {
-                var item = $(this);
+                var item = $(this),
+                submenu = item.children('ul');
                 
                 if(!item.hasClass('active-menuitem')) {
                     $this.menu.find('.active-menuitem').removeClass('active-menuitem');
@@ -286,8 +289,58 @@ PrimeFaces.widget.Rain = PrimeFaces.widget.BaseWidget.extend({
                         item.addClass('active-menuitem');
                     }
                 }
+
+                $this.calculatePosition(submenu.get(0), item.get(0));
             }
         });
+    },
+
+    calculatePosition: function(overlay, target) {
+        if (overlay) {
+            // reset
+            overlay.style.top = overlay.style.left = '';
+
+            var rect = target.getBoundingClientRect();
+            var left = rect.left, top = rect.top;
+            var vWidth = window.innerWidth, vHeight = window.innerHeight;
+            var oWidth = overlay.offsetWidth, oHeight = overlay.offsetHeight;
+            var topbarHeight = this.topbar.get(0).offsetHeight || 0;
+            var scrollbarWidth = this.calculateScrollbarWidth();
+
+            if (this.isHorizontal()) {
+                var width = left + oWidth + scrollbarWidth;
+                overlay.style.left = (vWidth < width ? (left - (width - vWidth)) : left) + 'px';
+            } else if (this.isSlim() || this.isSlimPlus()) {
+                var height = top + oHeight;
+                overlay.style.top = ((vHeight < height ? (top - (height - vHeight)) : top) - topbarHeight) + 'px';
+            }
+        }
+    },
+
+    calculateScrollbarWidth: function() {
+        var inner = document.createElement('p');
+        inner.style.width = "100%";
+        inner.style.height = "200px";
+      
+        var outer = document.createElement('div');
+        outer.style.position = "absolute";
+        outer.style.top = "0px";
+        outer.style.left = "0px";
+        outer.style.visibility = "hidden";
+        outer.style.width = "200px";
+        outer.style.height = "150px";
+        outer.style.overflow = "hidden";
+        outer.appendChild (inner);
+      
+        document.body.appendChild(outer);
+        var w1 = inner.offsetWidth;
+        outer.style.overflow = 'scroll';
+        var w2 = inner.offsetWidth;
+        if (w1 == w2) w2 = outer.clientWidth;
+      
+        document.body.removeChild(outer);
+      
+        return (w1 - w2);
     },
     
     bindTopbarEvents: function() {

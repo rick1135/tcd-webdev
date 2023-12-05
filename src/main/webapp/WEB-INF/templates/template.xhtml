@@ -33,6 +33,17 @@
                 </div>
                 <ui:include src="./footer.xhtml"/>
             </div>
+            
+            <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
+                <f:facet name="start">
+                    <i class="pi pi-spin pi-spinner layout-ajax-loader-icon" aria-hidden="true"/>
+                </f:facet>
+
+                <f:facet name="complete">
+                    <h:outputText value=""/>
+                </f:facet>
+            </p:ajaxStatus>
+            
             <div class="layout-mask modal-in"></div>
         </div>
         <h:outputStylesheet name="css/primeicons.css" library="rain-layout" />

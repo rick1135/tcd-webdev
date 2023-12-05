@@ -3,29 +3,27 @@
                 xmlns:p="http://primefaces.org/ui" template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="title">Login</ui:define>
-    <ui:define name="head">
 
-    </ui:define>
     <ui:define name="content">
         <div class="card">
             <h3 style="text-align: center;">Bem vindo</h3>
             <h:form id="login">
                 <p:messages id="messages" globalOnly="true"/>
-                
+
                 <div class="field grid">
                     <p:outputLabel for="username" styleClass="col-fixed flex justify-content-end" style="width:100px" value="Usuário"/>
                     <div class="col">
                         <p:inputText id="username" value="#{loginController.username}"/>
                     </div>
                 </div>
-                
+
                 <div class="field grid">
                     <p:outputLabel for="password" styleClass="col-fixed flex justify-content-end" style="width:100px" value="Senha"/>
                     <div class="col">
                         <p:inputText id="password" value="#{loginController.password}" type="password"/>
                     </div>
                 </div>
-                
+
                 <div class="field grid ">
                     <div class="col flex justify-content-center min-w-max">
                         <p:commandButton 

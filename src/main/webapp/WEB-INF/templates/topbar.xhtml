@@ -1,15 +1,15 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui" xmlns:po="http://primefaces.org/rain">
-
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:po="http://primefaces.org/rain">
+    
+    
+    
     <div class="layout-topbar">
         <div class="layout-topbar-wrapper">
             <div class="layout-topbar-left">
-                
                 <h:link id="logolink" outcome="/app/index" styleClass="layout-topbar-logo">
                     <p:graphicImage name="images/#{ guestPreferences.lightLogo ? 'logo-rain-white.svg' : 'logo-rain-black.svg'}"  library="rain-layout" />
                 </h:link>
-                
             </div>
             <div class="layout-topbar-right">
                 <div class="menu-button-wrapper">
@@ -18,11 +18,11 @@
                             <span></span>
                             <span></span>
                             <span></span>
-                          </div>
-                          <div class="menu-button-times">
+                        </div>
+                        <div class="menu-button-times">
                             <span></span>
                             <span></span>
-                          </div>
+                        </div>
                     </a>
                 </div>
                 <ul class="layout-topbar-actions">
@@ -232,14 +232,14 @@
                             </ul>
                         </li>
                     </ui:fragment>
-                 
+
                 </ul>
                 <a href="#" class="layout-rightpanel-button">
                     <i class="pi pi-ellipsis-v"></i>
                 </a>
             </div>
         </div>
-       
+
     </div>
 
 </ui:composition>
