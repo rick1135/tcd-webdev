@@ -1,7 +1,7 @@
-controller\PersistenceTestsServlet.class
 controller\LoginController$1.class
 model\ProcessoSeletivo.class
 view\GuestPreferences$ComponentTheme.class
+controller\CadastroController.class
 view\GuestPreferences.class
 model\usuario\UsuarioBean.class
 model\usuario\UsuarioBeanLocal.class
