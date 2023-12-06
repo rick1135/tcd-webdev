@@ -8,34 +8,26 @@ import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import model.ProcessoSeletivo;
+import model.JpaEntity;
+import model.processoseletivo.ProcessoSeletivo;
 
-@Entity
-@Table(name = "usuario")
 @NamedQueries({
+    @NamedQuery(
+            name = "Usuario.findByUsername",
+            query = "SELECT u FROM Usuario u WHERE u.username = :username"
+    ),
     @NamedQuery(
             name = "Usuario.all",
             query = "select us from Usuario us "
-            + "order by us.id"),
-    @NamedQuery(
-            name = "Usuario.byUsername",
-            query = "select us from Usuario us "
-            + "where us.username = :username")
+            + "order by us.id")
 })
-public class Usuario implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+@Entity
+public class Usuario extends JpaEntity implements Serializable {
 
     @Column(name = "username", nullable = false)
     private String username;
@@ -65,14 +57,6 @@ public class Usuario implements Serializable {
         this.password = password;
         this.group = group;
         this.processosSeletivos = processoSeletivo;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -107,7 +91,7 @@ public class Usuario implements Serializable {
         this.group = group;
     }
 
-    public boolean isNewsletter() {
+    public boolean getNewsletter() {
         return newsletter;
     }
 
@@ -125,7 +109,7 @@ public class Usuario implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(this.getId());
     }
 
     @Override
@@ -137,12 +121,12 @@ public class Usuario implements Serializable {
             return false;
         }
         Usuario other = (Usuario) obj;
-        return id == other.id;
+        return Objects.equals(this.getId(), other.getId());
     }
 
     @Override
     public String toString() {
-        return "Usuario [id=" + id + "]";
+        return "Usuario [id=" + this.getId() + "]";
     }
 
 }

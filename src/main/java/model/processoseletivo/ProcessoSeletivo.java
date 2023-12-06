@@ -1,4 +1,4 @@
-package model;
+package model.processoseletivo;
 
 import java.io.Serializable;
 import model.usuario.Usuario;
@@ -6,26 +6,27 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import model.JpaEntity;
 
+@NamedQueries({
+    @NamedQuery(
+            name = "processoSeletivo.findAll",
+            query = "select distinct p from ProcessoSeletivo p "
+            + "order by p.id"
+    )
+})
 @Entity
-public class ProcessoSeletivo implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class ProcessoSeletivo extends JpaEntity implements Serializable {
 
     private String nome;
     private boolean status;
@@ -45,22 +46,13 @@ public class ProcessoSeletivo implements Serializable {
     public ProcessoSeletivo() {
     }
 
-    public ProcessoSeletivo(int id, String nome, boolean status, Date dataInicio, Date dataFim, String linkEdital, List<Usuario> candidatos) {
-        this.id = id;
+    public ProcessoSeletivo(String nome, boolean status, Date dataInicio, Date dataFim, String linkEdital, List<Usuario> candidatos) {
         this.nome = nome;
         this.status = status;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.linkEdital = linkEdital;
         this.candidatos = candidatos;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -71,7 +63,7 @@ public class ProcessoSeletivo implements Serializable {
         this.nome = nome;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
@@ -113,7 +105,7 @@ public class ProcessoSeletivo implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(this.getId());
     }
 
     @Override
@@ -125,12 +117,12 @@ public class ProcessoSeletivo implements Serializable {
             return false;
         }
         ProcessoSeletivo other = (ProcessoSeletivo) obj;
-        return id == other.id;
+        return Objects.equals(this.getId(), other.getId());
     }
 
     @Override
     public String toString() {
-        return "ProcessoSeletivo [id=" + id + "]";
+        return "ProcessoSeletivo [id=" + this.getId() + "]";
     }
 
 }

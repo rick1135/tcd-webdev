@@ -19,7 +19,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
-import model.ProcessoSeletivo;
+import model.processoseletivo.ProcessoSeletivo;
 import model.usuario.Usuario;
 
 @Stateless
@@ -33,7 +33,7 @@ public class DataServiceBean
     Pbkdf2PasswordHash passwordHasher;
 
     @Override
-    public Usuario createUser(String username, String email, String password, String group, List<ProcessoSeletivo> processosSeletivos) {
+    public void createUser(String username, String email, String password, String group, List<ProcessoSeletivo> processosSeletivos) {
 
         // @see ApplicationConfig
         Map<String, String> parameters = new HashMap<>();
@@ -51,7 +51,7 @@ public class DataServiceBean
                 processosSeletivos);
         em.persist(newUser);
 //        em.flush();
-        return newUser;
+
     }
 
     @Override
@@ -61,7 +61,7 @@ public class DataServiceBean
 
     @Override
     public Optional<Usuario> getUser(String username) {
-        return em.createNamedQuery("Usuario.byUsername", Usuario.class)
+        return em.createNamedQuery("Usuario.findByUsername", Usuario.class)
                 .setParameter("username", username)
                 .getResultList()
                 .stream()

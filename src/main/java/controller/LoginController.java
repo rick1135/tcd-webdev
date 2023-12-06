@@ -1,7 +1,8 @@
 package controller;
 
 import java.io.IOException;
-import javax.enterprise.context.RequestScoped;
+import java.io.Serializable;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -14,16 +15,20 @@ import javax.security.enterprise.credential.UsernamePasswordCredential;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotEmpty;
+import model.usuario.UsuarioBean;
 
 @Named
-@RequestScoped
-public class LoginController {
+@SessionScoped
+public class LoginController implements Serializable{
 
     @NotEmpty
     private String username;
 
     @NotEmpty
     private String password;
+    
+    @Inject
+    UsuarioBean usuarioBean;
 
     @Inject
     FacesContext facesContext;
@@ -58,6 +63,7 @@ public class LoginController {
                 facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Credenciais incorretas", null));
                 break;
             case SUCCESS:
+                
                 getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/app/index.xhtml");
                 break;
         }

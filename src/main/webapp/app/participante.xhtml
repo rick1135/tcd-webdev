@@ -8,6 +8,7 @@
     <ui:define name="content">
         <h:form id="form">
             <div class="card">
+                <h:outputText value="Ola #{usuarioBean.nomeUsuario}"/>
                 <p:carousel value="#{carouselView.products}" var="product" numVisible="3" numScroll="3"
                             responsiveOptions="#{carouselView.responsiveOptions}">
                     <f:facet name="header">

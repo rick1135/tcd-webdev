@@ -1,4 +1,4 @@
-package model;
+package model.publicacao;
 
 import model.usuario.Usuario;
 import java.util.Date;
@@ -7,21 +7,16 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import model.JpaEntity;
 
 @Entity
-public class Publicacao {
+public class Publicacao extends JpaEntity{
 
     public enum TipoPublicacao {
         Noticia, Edital, Orientacao, Gabarito, Prova;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     private String titulo;
     private String conteudo;
     private Date dataPublicacao;
@@ -34,14 +29,6 @@ public class Publicacao {
     private Usuario autor;
 
     private String linkTwitter;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getTitulo() {
         return titulo;
@@ -101,7 +88,7 @@ public class Publicacao {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(this.getId());
     }
 
     @Override
@@ -113,12 +100,12 @@ public class Publicacao {
             return false;
         }
         Publicacao other = (Publicacao) obj;
-        return id == other.id;
+        return Objects.equals(other.getId(), this.getId());
     }
 
     @Override
     public String toString() {
-        return "Publicacao [id=" + id + "]";
+        return "Publicacao [id=" + this.getId() + "]";
     }
 
 }
