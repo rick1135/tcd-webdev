@@ -1,7 +1,6 @@
 package model.processoseletivo;
 
 import java.io.Serializable;
-<<<<<<< HEAD
 import java.util.Date;
 import model.usuario.Usuario;
 import java.util.List;
@@ -10,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-=======
 import java.time.LocalDate;
 import java.util.Date;
 import model.usuario.Usuario;
@@ -23,7 +21,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
->>>>>>> caff1bff7139d7cc1b8c05e8f4bbbbf48a29ddad
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;

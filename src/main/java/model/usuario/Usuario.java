@@ -4,10 +4,6 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-<<<<<<< HEAD
-=======
-
->>>>>>> caff1bff7139d7cc1b8c05e8f4bbbbf48a29ddad
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import model.JpaEntity;

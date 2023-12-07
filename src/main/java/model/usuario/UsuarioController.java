@@ -11,10 +11,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.security.enterprise.SecurityContext;
 import javax.servlet.ServletException;
-<<<<<<< HEAD
-=======
-import model.usuario.Usuario;
->>>>>>> caff1bff7139d7cc1b8c05e8f4bbbbf48a29ddad
 import util.DataServiceLocal;
 
 @Named

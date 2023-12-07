@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
 import java.io.Serializable;
@@ -12,18 +8,11 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import model.processoseletivo.ProcessoSeletivo;
-<<<<<<< HEAD
-=======
-import model.processoseletivo.ProcessoSeletivoService;
->>>>>>> caff1bff7139d7cc1b8c05e8f4bbbbf48a29ddad
 import model.processoseletivo.ProcessoSeletivoServiceLocal;
 import model.usuario.Usuario;
 import model.usuario.UsuarioController;
 import org.primefaces.model.ResponsiveOption;
-<<<<<<< HEAD
-=======
-import util.DataService;
->>>>>>> caff1bff7139d7cc1b8c05e8f4bbbbf48a29ddad
+
 /**
  *
  * @author rktds
