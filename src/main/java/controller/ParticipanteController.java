@@ -12,12 +12,10 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import model.processoseletivo.ProcessoSeletivo;
-import model.processoseletivo.ProcessoSeletivoService;
 import model.processoseletivo.ProcessoSeletivoServiceLocal;
 import model.usuario.Usuario;
 import model.usuario.UsuarioController;
 import org.primefaces.model.ResponsiveOption;
-import util.DataService;
 /**
  *
  * @author rktds

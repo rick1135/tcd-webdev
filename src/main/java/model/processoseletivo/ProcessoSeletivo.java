@@ -1,18 +1,14 @@
 package model.processoseletivo;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Date;
 import model.usuario.Usuario;
-
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
-
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;

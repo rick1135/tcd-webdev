@@ -1,15 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model.usuario;
 
 /**
  *
  * @author rktds
  */
-import java.util.List;
-import java.util.Optional;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -17,7 +11,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.security.enterprise.SecurityContext;
 import javax.servlet.ServletException;
-import model.usuario.Usuario;
 import util.DataServiceLocal;
 
 @Named

@@ -8,7 +8,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Email;
-import model.usuario.Usuario;
 import org.hibernate.validator.constraints.Length;
 import util.DataServiceLocal;
 

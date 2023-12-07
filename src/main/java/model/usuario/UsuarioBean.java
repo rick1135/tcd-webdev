@@ -1,16 +1,10 @@
 package model.usuario;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Optional;
 import javax.annotation.PostConstruct;
-import javax.ejb.Stateless;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import model.processoseletivo.ProcessoSeletivo;
 
 /**
  *
