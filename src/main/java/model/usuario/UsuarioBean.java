@@ -26,16 +26,12 @@ public class UsuarioBean implements Serializable {
     Usuario usuario;
 
     private String nomeUsuario;
-    private List<ProcessoSeletivo> processosSeletivosAtivos;
-    private List<ProcessoSeletivo> processosSeletivosFinalizados;
-    private List<ProcessoSeletivo> processosSeletivosCadastrados;
     private boolean newsLetter;
 
     @PostConstruct
     public void init() {
         usuario = userController.getCurrentUser();
         this.nomeUsuario = usuario.getUsername();
-        this.processosSeletivosCadastrados = usuario.getProcessosSeletivos();
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
@@ -47,31 +43,7 @@ public class UsuarioBean implements Serializable {
         this.nomeUsuario = nomeUsuario;
     }
 
-    public List<ProcessoSeletivo> getProcessosSeletivosAtivos() {
-        return processosSeletivosAtivos;
-    }
-
-    public void setProcessosSeletivosAtivos(List<ProcessoSeletivo> processosSeletivosAtivos) {
-        this.processosSeletivosAtivos = processosSeletivosAtivos;
-    }
-
-    public List<ProcessoSeletivo> getProcessosSeletivosFinalizados() {
-        return processosSeletivosFinalizados;
-    }
-
-    public void setProcessosSeletivosFinalizados(List<ProcessoSeletivo> processosSeletivosFinalizados) {
-        this.processosSeletivosFinalizados = processosSeletivosFinalizados;
-    }
-
-    public List<ProcessoSeletivo> getProcessosSeletivosCadastrados() {
-        return processosSeletivosCadastrados;
-    }
-
-    public void setProcessosSeletivosCadastrados(List<ProcessoSeletivo> processosSeletivosCadastrados) {
-        this.processosSeletivosCadastrados = processosSeletivosCadastrados;
-    }
-
-    public boolean isNewsLetter() {
+    public boolean getNewsLetter() {
         return newsLetter;
     }
 

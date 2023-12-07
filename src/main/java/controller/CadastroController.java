@@ -10,7 +10,7 @@ import javax.inject.Named;
 import javax.validation.constraints.Email;
 import model.usuario.Usuario;
 import org.hibernate.validator.constraints.Length;
-import util.DataServiceBeanLocal;
+import util.DataServiceLocal;
 
 /**
  *
@@ -21,7 +21,7 @@ import util.DataServiceBeanLocal;
 public class CadastroController implements Serializable {
 
     @Inject
-    DataServiceBeanLocal dataService;
+    DataServiceLocal dataService;
 
     @Inject
     FacesContext facesContext;
@@ -57,7 +57,7 @@ public class CadastroController implements Serializable {
     }
 
     public void cadastrar() throws IOException {
-        dataService.createUser(this.nome, this.email, this.senha, "user", null);
+        dataService.createUser(this.nome, this.email, this.senha, "user");
         getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/login.xhtml");
     }
 
