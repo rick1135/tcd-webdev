@@ -1,20 +1,14 @@
 package model.usuario;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import model.JpaEntity;
-import model.processoseletivo.ProcessoSeletivo;
 
 @NamedQueries({
     @NamedQuery(
@@ -44,19 +38,14 @@ public class Usuario extends JpaEntity implements Serializable {
     @Column(name = "newsletter")
     private boolean newsletter = false;
 
-    @Column(name = "processos_seletivos")
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProcessoSeletivo> processosSeletivos;
-
     public Usuario() {
     }
 
-    public Usuario(String username, String email, String password, String group, List<ProcessoSeletivo> processoSeletivo) {
+    public Usuario(String username, String email, String password, String group) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.group = group;
-        this.processosSeletivos = processoSeletivo;
     }
 
     public String getUsername() {
@@ -97,14 +86,6 @@ public class Usuario extends JpaEntity implements Serializable {
 
     public void setNewsletter(boolean newsletter) {
         this.newsletter = newsletter;
-    }
-
-    public List<ProcessoSeletivo> getProcessosSeletivos() {
-        return processosSeletivos;
-    }
-
-    public void setProcessosSeletivos(List<ProcessoSeletivo> processosSeletivos) {
-        this.processosSeletivos = processosSeletivos;
     }
 
     @Override

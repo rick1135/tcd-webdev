@@ -4,6 +4,7 @@
  */
 package util;
 
+import java.util.Date;
 import javax.ejb.Singleton;
 
 /**
@@ -23,8 +24,8 @@ import model.processoseletivo.ProcessoSeletivo;
 import model.usuario.Usuario;
 
 @Stateless
-public class DataServiceBean
-        implements DataServiceBeanLocal {
+public class DataService
+        implements DataServiceLocal {
 
     @PersistenceContext(unitName = "ProcessosSeletivosPU")
     EntityManager em;
@@ -33,7 +34,7 @@ public class DataServiceBean
     Pbkdf2PasswordHash passwordHasher;
 
     @Override
-    public void createUser(String username, String email, String password, String group, List<ProcessoSeletivo> processosSeletivos) {
+    public void createUser(String username, String email, String password, String group) {
 
         // @see ApplicationConfig
         Map<String, String> parameters = new HashMap<>();
@@ -45,10 +46,9 @@ public class DataServiceBean
         Usuario newUser = new Usuario(
                 username,
                 email,
-                passwordHasher.generate(
-                        password.toCharArray()),
-                group,
-                processosSeletivos);
+                passwordHasher.generate(password.toCharArray()),
+                group
+        );
         em.persist(newUser);
 //        em.flush();
 
@@ -60,11 +60,32 @@ public class DataServiceBean
     }
 
     @Override
-    public Optional<Usuario> getUser(String username) {
+    public Usuario getUser(String username) {
         return em.createNamedQuery("Usuario.findByUsername", Usuario.class)
                 .setParameter("username", username)
-                .getResultList()
-                .stream()
-                .findFirst(); // Can be null (Optional)...
+                .getSingleResult();
+                
+    }
+
+    public void addUsuarioToProcessoSeletivo(Usuario usuario, long processoSeletivoId) {
+        // Buscar o processo seletivo no banco de dados com base no ID fornecido
+        ProcessoSeletivo processoSeletivo = em.find(ProcessoSeletivo.class, processoSeletivoId);
+        
+        if (processoSeletivo != null) {
+            // Adicionar o usuário à lista de candidatos do processo seletivo
+            processoSeletivo.getCandidatos().add(usuario);
+
+            // Não é necessário chamar persist, pois o processo seletivo já existe no banco de dados
+            // Opcional: Se você quiser sincronizar as alterações no banco de dados
+            em.merge(processoSeletivo);
+        } else {
+            // Tratar o caso em que o processo seletivo não foi encontrado
+            // Isso pode incluir lançar uma exceção, registrar um aviso, etc.
+            System.out.println("Processo seletivo não encontrado com o ID: " + processoSeletivoId);
+        }
+    }
+
+    public void salvarNovoProcessoSeletivo(ProcessoSeletivo processoSeletivo) {
+        em.persist(processoSeletivo);
     }
 }

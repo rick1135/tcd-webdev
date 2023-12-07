@@ -18,14 +18,14 @@ import javax.inject.Named;
 import javax.security.enterprise.SecurityContext;
 import javax.servlet.ServletException;
 import model.usuario.Usuario;
-import util.DataServiceBeanLocal;
+import util.DataServiceLocal;
 
 @Named
 @RequestScoped
 public class UsuarioController {
 
     @Inject
-    DataServiceBeanLocal dataService;
+    DataServiceLocal dataService;
 
     @Inject
     SecurityContext securityContext;
@@ -33,7 +33,7 @@ public class UsuarioController {
     @Inject
     FacesContext facesContext;
 
-    private Optional<Usuario> currentUser;
+    private Usuario currentUser;
 
     @PostConstruct
     public void initialize() {
@@ -42,7 +42,7 @@ public class UsuarioController {
     }
 
     public Usuario getCurrentUser() {
-        return currentUser.orElse(null);
+        return currentUser;
     }
 
     public boolean isAuthenticated() {

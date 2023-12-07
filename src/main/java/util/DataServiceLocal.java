@@ -4,6 +4,7 @@
  */
 package util;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.ejb.Local;
@@ -15,8 +16,10 @@ import model.usuario.Usuario;
  * @author rktds
  */
 @Local
-public interface DataServiceBeanLocal {
-    void createUser(String username, String email, String password, String group, List<ProcessoSeletivo> processosSeletivos);
+public interface DataServiceLocal {
+    void createUser(String username, String email, String password, String group);
     List<Usuario> getAllUsers();
-    Optional<Usuario> getUser(String username);
+    Usuario getUser(String username);
+    public void salvarNovoProcessoSeletivo(ProcessoSeletivo processoSeletivo);
+    public void addUsuarioToProcessoSeletivo(Usuario usuario, long processoSeletivoId);
 }

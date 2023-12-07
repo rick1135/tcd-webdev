@@ -25,8 +25,8 @@ public class Publicacao extends JpaEntity{
     @Enumerated(EnumType.STRING)
     private TipoPublicacao tipo;
 
-    @ManyToOne
-    private Usuario autor;
+    // TODO mapear o autor as publicacoes
+    private String autor;
 
     private String linkTwitter;
 
@@ -70,11 +70,11 @@ public class Publicacao extends JpaEntity{
         this.tipo = tipo;
     }
 
-    public Usuario getAutor() {
+    public String getAutor() {
         return autor;
     }
 
-    public void setAutor(Usuario autor) {
+    public void setAutor(String autor) {
         this.autor = autor;
     }
 

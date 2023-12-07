@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="./../WEB-INF/templates/template.xhtml">
+
+    <ui:define name="content">
+        <div class="card">
+            <h:form>
+                <h5 class="mt-0">Basic</h5>
+                <div class="field">
+                    <p:outputLabel for="titulo" styleClass="block">Titulo da publicação</p:outputLabel>
+                    <p:inputText id="titulo" styleClass="block" value="#{publicacaoController.text}"/>
+                </div>
+                <p:textEditor widgetVar="editor1" value="#{publicacaoController.text}" height="300px"  />
+
+                <p:commandButton value="Save" update="@form" icon="pi pi-check" action="#{publicacaoController.publicar()}"/>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

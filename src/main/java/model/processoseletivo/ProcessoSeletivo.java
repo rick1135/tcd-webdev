@@ -1,19 +1,23 @@
 package model.processoseletivo;
 
 import java.io.Serializable;
-import model.usuario.Usuario;
+import java.time.LocalDate;
 import java.util.Date;
+import model.usuario.Usuario;
+
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import model.JpaEntity;
@@ -23,13 +27,20 @@ import model.JpaEntity;
             name = "processoSeletivo.findAll",
             query = "select distinct p from ProcessoSeletivo p "
             + "order by p.id"
+    ),
+    @NamedQuery(
+            name = "processoSeletivo.findByUserId",
+            query = "SELECT DISTINCT p FROM ProcessoSeletivo p JOIN p.candidatos u WHERE u.id = :userId"
     )
 })
 @Entity
 public class ProcessoSeletivo extends JpaEntity implements Serializable {
 
+    @Column(nullable = false)
     private String nome;
-    private boolean status;
+
+    @Enumerated(EnumType.STRING)
+    private Fase fase = Fase.INSCRICAO;
 
     @Temporal(TemporalType.DATE)
     private Date dataInicio;
@@ -39,16 +50,20 @@ public class ProcessoSeletivo extends JpaEntity implements Serializable {
 
     private String linkEdital;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "usuario_id")
+    @ManyToMany
+    @JoinTable(
+            name = "usuario_processo_seletivo",
+            joinColumns = @JoinColumn(name = "processo_seletivo_id"),
+            inverseJoinColumns = @JoinColumn(name = "usuario_id")
+    )
     private List<Usuario> candidatos;
 
     public ProcessoSeletivo() {
     }
 
-    public ProcessoSeletivo(String nome, boolean status, Date dataInicio, Date dataFim, String linkEdital, List<Usuario> candidatos) {
+    public ProcessoSeletivo(String nome, Fase fase, Date dataInicio, Date dataFim, String linkEdital, List<Usuario> candidatos) {
         this.nome = nome;
-        this.status = status;
+        this.fase = fase;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.linkEdital = linkEdital;
@@ -63,12 +78,12 @@ public class ProcessoSeletivo extends JpaEntity implements Serializable {
         this.nome = nome;
     }
 
-    public boolean getStatus() {
-        return status;
+    public Fase getFase() {
+        return fase;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setFase(Fase fase) {
+        this.fase = fase;
     }
 
     public Date getDataInicio() {
