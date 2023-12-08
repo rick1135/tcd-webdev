@@ -3,6 +3,7 @@ package model.publicacao;
 import model.usuario.Usuario;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,6 +19,8 @@ public class Publicacao extends JpaEntity{
     }
 
     private String titulo;
+    
+    @Column(columnDefinition = "TEXT")
     private String conteudo;
     private Date dataPublicacao;
     private Date dataEdicao;

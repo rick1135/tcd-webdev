@@ -10,6 +10,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.persistence.Lob;
 import model.publicacao.Publicacao;
 import model.publicacao.PublicacaoServiceLocal;
 
@@ -30,6 +31,7 @@ public class PublicacaoController implements Serializable {
     @Inject
     FacesContext facesContext;
 
+    @Lob     
     private String text;
 
     private String titulo;
@@ -97,23 +99,23 @@ public class PublicacaoController implements Serializable {
         return publicacoes;
     }
 
-    private ExternalContext getExternalContext() {
-        return facesContext.getExternalContext();
-    }
+//    private ExternalContext getExternalContext() {
+//        return facesContext.getExternalContext();
+//    }
 
-    public String getFromURL() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        String viewId = context.getViewRoot().getViewId();
-
-        String noticia = viewId.substring(1, viewId.lastIndexOf('.'));
-
-        return noticia;
-    }
+//    public String getFromURL() {
+//        FacesContext context = FacesContext.getCurrentInstance();
+//        String viewId = context.getViewRoot().getViewId();
+//
+//        String noticia = viewId.substring(1, viewId.lastIndexOf('.'));
+//
+//        return noticia;
+//    }
     
-    public String navigateToPublicacao() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        String tipo = context.getExternalContext().getRequestParameterMap().get("tipo");
-
-        return "publicacao.xhtml?faces-redirect=true&tipo=" + tipo;
-    }
+//    public String navigateToPublicacao() {
+//        FacesContext context = FacesContext.getCurrentInstance();
+//        String tipo = context.getExternalContext().getRequestParameterMap().get("tipo");
+//
+//        return "publicacao.xhtml?faces-redirect=true&tipo=" + tipo;
+//    }
 }

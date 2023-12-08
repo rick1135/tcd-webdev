@@ -33,12 +33,11 @@
                 </div>
                 <div class="card">
                     <h:form>
-                        <p:messages showDetail="true"/>
                         <p:captcha label="Captcha"/>               
                     </h:form>
                 </div>
                 <div class="field grid flex justify-content-center">
-                    <p:commandButton update="@form" value="Cadastrar" action="#{cadastroController.cadastrar}"/>
+                    <p:commandButton value="Cadastrar" action="#{cadastroController.cadastrar}"/>
                 </div>
 
                 <div class="max-w-25rem flex justify-content-center">
