@@ -1,12 +1,12 @@
 package controller;
 
-import java.io.IOException;
 import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.context.ExternalContext;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.PersistenceException;
 import javax.validation.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import util.DataServiceLocal;
@@ -55,13 +55,14 @@ public class CadastroController implements Serializable {
         this.senha = senha;
     }
 
-    public void cadastrar() throws IOException {
-        dataService.createUser(this.nome, this.email, this.senha, "user");
-        getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/login.xhtml");
-    }
-
-    private ExternalContext getExternalContext() {
-        return facesContext.getExternalContext();
+    public String cadastrar() {
+        try {
+            dataService.createUser(this.nome, this.email, this.senha, "user");
+            return "/login?faces-redirect=true"; // Redirect on success
+        } catch (Exception e) {
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Tente outro usuário ou email", null));
+            return null; // Stay on the same page
+        }
     }
 
     public CadastroController() {

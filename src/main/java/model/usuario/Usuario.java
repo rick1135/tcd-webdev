@@ -21,7 +21,7 @@ import model.JpaEntity;
 @Entity
 public class Usuario extends JpaEntity implements Serializable {
 
-    @Column(name = "username", nullable = false)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @Column(name = "email", nullable = false, unique = true)

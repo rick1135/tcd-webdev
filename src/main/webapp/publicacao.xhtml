@@ -10,21 +10,25 @@
             <div class="card">
                 <p:carousel value="#{publicacaoController.publicacoes}" var="publicacao" numVisible="3" numScroll="3"
                             responsiveOptions="#{participanteController.responsiveOptions}">
-                    <f:facet name="header">
-                        <h5>Basic</h5>
-                    </f:facet>
                     <div class="product-item">
                         <div class="product-item-content">
-                            <div>
-                                <h4 class="mb-1">#{publicacao.titulo}</h4>
-                                <h6 class="mt-0 mb-3">
-                                    <h:outputText value="#{publicacao.conteudo}">
-                                    </h:outputText>
-                                </h6>
-                                <div class="mt-5">
-                                    <p:commandButton type="button" icon="pi pi-search" styleClass="rounded-button mr-2" />
-                                    <p:commandButton type="button" icon="pi pi-star" styleClass="ui-button-success rounded-button mr-2" />
-                                    <p:commandButton type="button" icon="pi pi-cog" styleClass="ui-button-help rounded-button" />
+                            <div class="grid w-20rem">
+                                <div class="col-12">
+                                    <h4 class="flex flex-wrap h-5rem justify-content-center">
+                                        <h:outputText value="#{publicacao.titulo.length() > 50 ? publicacao.titulo.substring(0,50).concat('...') : publicacao.titulo}" escape="false" />
+                                    </h4>
+                                </div>
+                                <div class="col-12">
+                                    <h6 class="flex flex-wrap h-10rem">
+                                        <h:outputText value="#{publicacao.conteudo.length() > 300 ? publicacao.conteudo.substring(0,300).concat('...') : publicacao.conteudo}" escape="false" />
+                                    </h6>
+                                </div>
+                                <div class="col-12 flex justify-content-center align-content-center">
+                                    <div class="mt-5">
+                                        <p:commandButton type="button" icon="pi pi-eye" styleClass="rounded-button mr-2" />
+                                        <p:commandButton type="button" icon="pi pi-star" styleClass="ui-button-success rounded-button mr-2" />
+                                        <p:commandButton type="button" icon="pi pi-cog" styleClass="ui-button-help rounded-button" rendered="#{usuarioController.authenticated and usuarioController.allowedToSeeUsers}" />
+                                    </div>
                                 </div>
                             </div>
                         </div>

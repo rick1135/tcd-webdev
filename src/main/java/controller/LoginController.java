@@ -18,7 +18,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Named
 @SessionScoped
-public class LoginController implements Serializable{
+public class LoginController implements Serializable {
 
     @NotEmpty
     private String username;
@@ -48,8 +48,8 @@ public class LoginController implements Serializable{
     public void setPassword(String password) {
         this.password = password;
     }
-    //</editor-fold>
 
+    //</editor-fold>
     public void execute() throws IOException {
         switch (processAuthentication()) {
             case SEND_CONTINUE:
@@ -59,7 +59,7 @@ public class LoginController implements Serializable{
                 facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Credenciais incorretas", null));
                 break;
             case SUCCESS:
-                
+
                 getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/index.xhtml");
                 break;
         }

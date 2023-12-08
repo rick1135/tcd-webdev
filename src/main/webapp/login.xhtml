@@ -4,6 +4,10 @@
 
     <ui:define name="title">Login</ui:define>
 
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{usuarioController.logout}" />
+    </f:metadata>
+    
     <ui:define name="content">
         <div class="card">
             <h3 style="text-align: center;">Bem vindo</h3>
@@ -11,7 +15,7 @@
                 <p:messages id="messages" globalOnly="true"/>
 
                 <div class="field grid">
-                    <p:outputLabel for="username" styleClass="col-fixed flex justify-content-end" style="width:100px" value="Usuário"/>
+                    <p:outputLabel for="username" styleClass="col-fixed flex justify-content-end" style="width:100px" value="Username"/>
                     <div class="col">
                         <p:inputText id="username" value="#{loginController.username}"/>
                     </div>

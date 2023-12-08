@@ -1,3 +1,15 @@
+.carousel-item-margin {
+    margin: 10px; /* Adjust the margin as needed */
+}
+
+.text-preview {
+  display: block; /* or inline-block */
+  max-height: 4.5em; /* Adjust the max-height to fit the number of lines you want */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  line-height: 1.5em; /* Adjust line-height for better text spacing */
+}
 /* Add your customizations of the layout variables here */
 @-webkit-keyframes fadeInDown {
   from {
