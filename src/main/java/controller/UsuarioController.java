@@ -1,4 +1,4 @@
-package model.usuario;
+package controller;
 
 /**
  *
@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.security.enterprise.SecurityContext;
 import javax.servlet.ServletException;
+import model.usuario.Usuario;
 import util.DataServiceLocal;
 
 @Named
@@ -30,8 +31,12 @@ public class UsuarioController {
 
     @PostConstruct
     public void initialize() {
-        String username = securityContext.getCallerPrincipal().getName();
-        this.currentUser = dataService.getUser(username);
+        if (securityContext.getCallerPrincipal() != null) {
+            String username = securityContext.getCallerPrincipal().getName();
+            this.currentUser = dataService.getUser(username);
+        } else {
+            this.currentUser = null;
+        }
     }
 
     public Usuario getCurrentUser() {

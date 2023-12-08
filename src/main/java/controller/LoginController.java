@@ -15,7 +15,6 @@ import javax.security.enterprise.credential.UsernamePasswordCredential;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotEmpty;
-import model.usuario.UsuarioBean;
 
 @Named
 @SessionScoped
@@ -26,9 +25,6 @@ public class LoginController implements Serializable{
 
     @NotEmpty
     private String password;
-    
-    @Inject
-    UsuarioBean usuarioBean;
 
     @Inject
     FacesContext facesContext;
@@ -64,7 +60,7 @@ public class LoginController implements Serializable{
                 break;
             case SUCCESS:
                 
-                getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/app/index.xhtml");
+                getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/index.xhtml");
                 break;
         }
     }

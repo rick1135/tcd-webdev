@@ -10,7 +10,6 @@ import javax.inject.Named;
 import model.processoseletivo.ProcessoSeletivo;
 import model.processoseletivo.ProcessoSeletivoServiceLocal;
 import model.usuario.Usuario;
-import model.usuario.UsuarioController;
 import org.primefaces.model.ResponsiveOption;
 
 /**

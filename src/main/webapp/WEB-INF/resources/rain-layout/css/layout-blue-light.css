@@ -180,8 +180,7 @@ a {
   flex-direction: column;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  min-height: 100vh;
-  padding-top: 60px;
+  min-height: 90vh;
 }
 
 .layout-mask {

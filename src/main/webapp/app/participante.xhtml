@@ -8,7 +8,7 @@
     <ui:define name="content">
         <h:form id="form">
             <div class="card">
-                <h:outputText value="Ola #{usuarioBean.nomeUsuario}"/>
+                <h:outputText value="Ola #{usuarioController.currentUser.username}"/>
                 <p:carousel value="#{participanteController.processosSeletivos}" var="processoseletivo" numVisible="3" numScroll="3"
                             responsiveOptions="#{participanteController.responsiveOptions}">
                     <f:facet name="header">
