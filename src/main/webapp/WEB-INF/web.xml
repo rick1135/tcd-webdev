@@ -14,6 +14,16 @@
         </param-value>
     </context-param>
     
+    <context-param>
+        <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
+        <param-value>6Lf8uSopAAAAAEuxe1-EYiFZlLRQZmo8t73NQDgk</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
+        <param-value>6Lf8uSopAAAAAPbw6VQWpzK2QMtdt-jXYcHY0YW6</param-value>
+    </context-param>
+    
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -48,8 +58,6 @@
     <security-constraint>
         <display-name>User Role</display-name>
         <web-resource-collection>
-            <web-resource-name>Página Inicio</web-resource-name>
-            <url-pattern>/app/index.xhtml</url-pattern>
             <web-resource-name>Página do Participante</web-resource-name>
             <url-pattern>/app/participante.xhtml</url-pattern>
         </web-resource-collection>

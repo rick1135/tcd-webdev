@@ -8,11 +8,17 @@
     <ui:define name="content">
         <div class="card">
             <h:form>
-                <h5 class="mt-0">Basic</h5>
                 <div class="field">
                     <p:outputLabel for="titulo" styleClass="block">Titulo da publicação</p:outputLabel>
-                    <p:inputText id="titulo" styleClass="block" value="#{publicacaoController.text}"/>
+                    <p:inputText id="titulo" styleClass="block" value="#{publicacaoController.titulo}"/>
                 </div>
+                <p:selectOneMenu value="#{publicacaoController.tipo}">
+                    <f:selectItem itemLabel="Tipo da publicação" itemValue="" />
+                    <f:selectItem itemLabel="Notícia" itemValue="NOTICIA" />
+                    <f:selectItem itemLabel="Edital" itemValue="EDITAL" />
+                    <f:selectItem itemLabel="Orientação" itemValue="ORIENTACAO" />
+                    <f:selectItem itemLabel="Gabaritos e Provas" itemValue="GABARITOEPROVA" />
+                </p:selectOneMenu>
                 <p:textEditor widgetVar="editor1" value="#{publicacaoController.text}" height="300px"  />
 
                 <p:commandButton value="Save" update="@form" icon="pi pi-check" action="#{publicacaoController.publicar()}"/>

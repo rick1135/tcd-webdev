@@ -90,9 +90,9 @@ public class TopbarController implements Serializable {
         return model;
     }
 
-    public void redirect() throws IOException {
+    public void redirect(String page) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        ec.redirect(ec.getRequestContextPath());
+        ec.redirect(ec.getRequestContextPath() + page);
     }
 
     public void save() {

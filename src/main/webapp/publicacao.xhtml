@@ -3,13 +3,12 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
-                template="./../WEB-INF/templates/template.xhtml">
+                template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="content">
         <h:form id="form">
             <div class="card">
-                <h:outputText value="Olá #{usuarioController.currentUser.username}"/>
-                <p:carousel value="#{participanteController.processosSeletivos}" var="processoseletivo" numVisible="3" numScroll="3"
+                <p:carousel value="#{publicacaoController.publicacoes}" var="publicacao" numVisible="3" numScroll="3"
                             responsiveOptions="#{participanteController.responsiveOptions}">
                     <f:facet name="header">
                         <h5>Basic</h5>
@@ -17,9 +16,9 @@
                     <div class="product-item">
                         <div class="product-item-content">
                             <div>
-                                <h4 class="mb-1">#{processoseletivo.nome}</h4>
+                                <h4 class="mb-1">#{publicacao.titulo}</h4>
                                 <h6 class="mt-0 mb-3">
-                                    <h:outputText value="#{processoseletivo.fase}">                                       
+                                    <h:outputText value="#{publicacao.conteudo}">
                                     </h:outputText>
                                 </h6>
                                 <div class="mt-5">
@@ -34,5 +33,4 @@
             </div>
         </h:form>
     </ui:define>
-
 </ui:composition>

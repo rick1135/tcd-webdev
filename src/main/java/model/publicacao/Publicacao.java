@@ -14,7 +14,7 @@ import model.JpaEntity;
 public class Publicacao extends JpaEntity{
 
     public enum TipoPublicacao {
-        Noticia, Edital, Orientacao, Gabarito, Prova;
+        NOTICIA, EDITAL, ORIENTACAO, GABARITOEPROVA;
     }
 
     private String titulo;
@@ -25,7 +25,6 @@ public class Publicacao extends JpaEntity{
     @Enumerated(EnumType.STRING)
     private TipoPublicacao tipo;
 
-    // TODO mapear o autor as publicacoes
     private String autor;
 
     private String linkTwitter;
