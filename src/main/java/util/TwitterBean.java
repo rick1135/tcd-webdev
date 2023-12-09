@@ -10,6 +10,7 @@ import com.github.scribejava.core.oauth.OAuth10aService;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import java.io.Serializable;
+import org.json.JSONObject;
 
 /**
  *
@@ -20,7 +21,7 @@ import java.io.Serializable;
 public class TwitterBean implements Serializable {
 
     private static final String PROTECTED_RESOURCE_URL = "https://api.twitter.com/2/tweets";
-    
+
     private static final String apiKey = System.getenv("TWITTER_API_KEY");
     private static final String apiSecret = System.getenv("TWITTER_API_SECRET");
     private static final String accessTokenStr = System.getenv("TWITTER_ACCESS_TOKEN");
@@ -36,7 +37,7 @@ public class TwitterBean implements Serializable {
         accessToken = new OAuth1AccessToken(accessTokenStr, accessTokenSecretStr);
     }
 
-    public void postTwitter(String tweetText) throws Exception {
+    public String postTwitter(String tweetText) throws Exception {
         final OAuthRequest request = new OAuthRequest(Verb.POST, PROTECTED_RESOURCE_URL);
 
         request.addHeader("Content-Type", "application/json");
@@ -49,7 +50,19 @@ public class TwitterBean implements Serializable {
         try (Response response = service.execute(request)) {
             System.out.println("HTTP response code: " + response.getCode());
             System.out.println("Response body: " + response.getBody());
-        }
 
+            if (response.getCode() == 201) {
+                JSONObject jsonResponse = new JSONObject(response.getBody());
+                String tweetId = jsonResponse.getJSONObject("data").getString("id");
+                String tweetUrl = "https://twitter.com/i/web/status/" + tweetId;
+                System.out.println("Link to the tweet: " + tweetUrl);
+                return tweetUrl;
+            }else{
+                return null;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -8,11 +8,11 @@ import javax.inject.Named;
 import controller.UsuarioController;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.Lob;
 import model.publicacao.Publicacao;
 import model.publicacao.PublicacaoServiceLocal;
+import util.TwitterBean;
 
 /**
  *
@@ -28,10 +28,11 @@ public class PublicacaoController implements Serializable {
     @Inject
     UsuarioController usuarioController;
 
+    // TODO mudar twitter bean para um twitter service
     @Inject
-    FacesContext facesContext;
+    TwitterBean twitterBean;
 
-    @Lob     
+    @Lob
     private String text;
 
     private String titulo;
@@ -49,8 +50,7 @@ public class PublicacaoController implements Serializable {
         }
     }
 
-    // private String tipo;
-    public void publicar() {
+    public void publicar() throws Exception {
         Publicacao publicacao = new Publicacao();
         LocalDate localdate = LocalDate.now();
 
@@ -58,8 +58,10 @@ public class PublicacaoController implements Serializable {
         publicacao.setConteudo(text);
         publicacao.setDataPublicacao(java.sql.Date.valueOf(localdate));
         publicacao.setDataEdicao(null);
-        // TODO api do twitter
-        publicacao.setLinkTwitter(null);
+        if(publicacoes != null)
+            publicacao.setLinkTwitter(twitterBean.postTwitter("Nova publicação em nosso site Processos Seletivos! Acesse através do link: http://localhost:8080/publicacaoDetail.xhtml?idPublicacao=" + publicacoes.size() + 1));
+        else
+            publicacao.setLinkTwitter(twitterBean.postTwitter("Nova publicação em nosso site Processos Seletivos! Acesse através do link: http://localhost:8080/publicacaoDetail.xhtml?idPublicacao=1"));
         publicacao.setTipo(Publicacao.TipoPublicacao.valueOf(tipo.toUpperCase()));
         publicacao.setTitulo(titulo);
         publicacao.setTrash(false);
@@ -102,7 +104,6 @@ public class PublicacaoController implements Serializable {
 //    private ExternalContext getExternalContext() {
 //        return facesContext.getExternalContext();
 //    }
-
 //    public String getFromURL() {
 //        FacesContext context = FacesContext.getCurrentInstance();
 //        String viewId = context.getViewRoot().getViewId();
@@ -111,7 +112,6 @@ public class PublicacaoController implements Serializable {
 //
 //        return noticia;
 //    }
-    
 //    public String navigateToPublicacao() {
 //        FacesContext context = FacesContext.getCurrentInstance();
 //        String tipo = context.getExternalContext().getRequestParameterMap().get("tipo");

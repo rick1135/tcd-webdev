@@ -15,7 +15,7 @@
                             <div class="grid w-20rem">
                                 <div class="col-12">
                                     <h4 class="flex flex-wrap h-5rem justify-content-center">
-                                        <h:outputText value="#{publicacao.titulo.length() > 50 ? publicacao.titulo.substring(0,50).concat('...') : publicacao.titulo}" escape="false" />
+                                        <h:outputText value="#{publicacao.titulo.length() > 50 ? publicacao.titulo.substring(0,50).concat('...') : publicacao.titulo}" escape="false"/>
                                     </h4>
                                 </div>
                                 <div class="col-12">
@@ -25,7 +25,12 @@
                                 </div>
                                 <div class="col-12 flex justify-content-center align-content-center">
                                     <div class="mt-5">
-                                        <p:commandButton type="button" icon="pi pi-eye" styleClass="rounded-button mr-2" />
+                                        <h:link value="teste" outcome="publicacaoDetail.xhtml">
+                                            <f:param name="idPublicacao" value="#{publicacao.id}"/>
+                                        </h:link>
+                                        <p:commandButton icon="pi pi-eye" styleClass="rounded-button mr-2" action="publicacaoDetail" ajax="false">
+                                            <f:param name="idPublicacao" value="#{publicacao.id}"/>
+                                        </p:commandButton>
                                         <p:commandButton type="button" icon="pi pi-star" styleClass="ui-button-success rounded-button mr-2" />
                                         <p:commandButton type="button" icon="pi pi-cog" styleClass="ui-button-help rounded-button" rendered="#{usuarioController.authenticated and usuarioController.allowedToSeeUsers}" />
                                     </div>
