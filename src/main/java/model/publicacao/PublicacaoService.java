@@ -4,10 +4,13 @@
  */
 package model.publicacao;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -38,6 +41,17 @@ public class PublicacaoService implements PublicacaoServiceLocal {
     public List<Publicacao> getPublicacoesByTipo(Publicacao.TipoPublicacao tipo) {
         return entityManager.createQuery("SELECT p FROM Publicacao p WHERE p.tipo = :tipo", Publicacao.class)
                 .setParameter("tipo", tipo)
+                .getResultList();
+    }
+
+    public List<Publicacao> getNoticiasUltimosQuinzeDias() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, -15);
+        Date fifteenDaysAgo = calendar.getTime();
+
+        return entityManager.createQuery("SELECT p FROM Publicacao p WHERE p.tipo = :tipo AND p.dataPublicacao >= :data", Publicacao.class)
+                .setParameter("tipo", Publicacao.TipoPublicacao.NOTICIA)
+                .setParameter("data", fifteenDaysAgo, TemporalType.DATE)
                 .getResultList();
     }
 }

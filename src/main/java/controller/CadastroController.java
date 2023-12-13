@@ -31,6 +31,8 @@ public class CadastroController implements Serializable {
     @Length(min = 8, max = 16, message = "Senha deve conter de 8 a 16 caracteres.")
     private String senha;
 
+    private boolean newsLetter;
+
     public String getNome() {
         return nome;
     }
@@ -54,10 +56,18 @@ public class CadastroController implements Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+    
+    public boolean getNewsLetter() {
+        return newsLetter;
+    }
+
+    public void setNewsLetter(boolean newsLetter) {
+        this.newsLetter = newsLetter;
+    }
 
     public String cadastrar() {
         try {
-            dataService.createUser(this.nome, this.email, this.senha, "user");
+            dataService.createUser(this.nome, this.email, this.senha, "user", this.newsLetter);
             return "/login?faces-redirect=true"; // Redirect on success
         } catch (Exception e) {
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Tente outro usuário ou email", null));

@@ -39,11 +39,12 @@ public class Usuario extends JpaEntity implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(String username, String email, String password, String group) {
+    public Usuario(String username, String email, String password, String group, boolean newsletter) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.group = group;
+        this.newsletter = newsletter;
     }
 
     public String getUsername() {

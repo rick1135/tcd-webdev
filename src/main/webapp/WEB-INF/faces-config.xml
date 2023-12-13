@@ -30,5 +30,4 @@
             <renderer-class>org.primefaces.rain.component.RainMenuRenderer</renderer-class>
         </renderer>
     </render-kit>
-    
 </faces-config>

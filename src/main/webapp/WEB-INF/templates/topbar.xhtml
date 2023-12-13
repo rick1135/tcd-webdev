@@ -5,7 +5,7 @@
         <div class="card" style="padding: 0px">
             <div class="grid" style="margin: 0px">
                 <div class="col-11">
-                    <p:commandButton value="Publicação" icon="pi pi-plus" rendered="#{usuarioController.authenticated and usuarioController.allowedToSeeUsers}" action="#{topbarController.redirect('/app/publicacao.xhtml')}"/>
+                    <p:commandButton value="Publicação" icon="pi pi-plus" rendered="#{usuarioController.authenticated and usuarioController.allowedToSeeAdmin}" action="#{topbarController.redirect('/app/publicacao.xhtml')}"/>
                 </div>
                 <div class="col">
                     <div class="flex justify-content-end">
@@ -14,6 +14,7 @@
                             <p:submenu label="#{usuarioController.authenticated ? usuarioController.currentUser.username : 'Visitante'}">
                                 <p:menuitem value="Login" icon="pi pi-sign-in" rendered="#{!usuarioController.authenticated}" action="#{topbarController.redirect('../login.xhtml')}"/>
                                 <p:menuitem value="Cadastro" icon="pi pi-plus" rendered="#{!usuarioController.authenticated}" action="#{topbarController.redirect('../cadastro.xhtml')}"/>
+                                <p:menuitem value="Participante" icon="pi pi-id-card" rendered="#{usuarioController.authenticated and usuarioController.allowedToSeeUser}" action="#{topbarController.redirect('../app/participante.xhtml')}"/>
                                 <p:menuitem value="Logout" action="#{usuarioController.logout()}" icon="pi pi-sign-out" rendered="#{usuarioController.authenticated}"/>
                             </p:submenu>
                         </p:menu>

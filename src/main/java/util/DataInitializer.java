@@ -43,8 +43,8 @@ public class DataInitializer{
         dataService.salvarNovoProcessoSeletivo(p2);
         
         if (dataService.getAllUsers().isEmpty()) {
-            dataService.createUser("Luis Guisso", "guisso", "asdf", "admin");
-            dataService.createUser("Andrea Zacchi", "azacchi", "asdf", "user");
+            dataService.createUser("Luis Guisso", "guisso", "asdf", "admin", false);
+            dataService.createUser("Andrea Zacchi", "azacchi", "asdf", "user", false);
             Usuario guisso = dataService.getUser("Luis Guisso");
             dataService.addUsuarioToProcessoSeletivo(guisso, 1l);
             dataService.addUsuarioToProcessoSeletivo(guisso, 2l);

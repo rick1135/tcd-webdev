@@ -31,6 +31,12 @@
                         <p:password id="pwd2" value="#{cadastroController.senha}" label="Password 2" required="true"/>
                     </div>
                 </div>
+                <div class="field grid">
+                    <p:outputLabel for="newsletter" styleClass="col-fixed flex justify-content-end" style="width:100px" value="Newsletter"/>
+                    <div class="col">
+                        <p:selectBooleanCheckbox id="newsletter" value="#{cadastroController.newsLetter}"/>
+                    </div>
+                </div>
                 <div class="card">
                     <h:form>
                         <p:captcha label="Captcha"/>               

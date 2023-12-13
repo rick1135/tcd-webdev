@@ -8,11 +8,22 @@
     <ui:define name="content">
         <h:form id="form">
             <div class="card">
-                <h:outputText value="Olá #{usuarioController.currentUser.username}"/>
+                <h2>Newsletter</h2>
+                <ui:repeat value="#{participanteController.newsletter}" var="noticia" varStatus="status">
+                    <h:panelGroup>
+                        <p:link outcome="publicacaoDetail">
+                            <f:param name="idPublicacao" value="#{noticia.id}" />
+                            #{noticia.titulo}
+                        </p:link>
+                        <br/>
+                    </h:panelGroup>
+                </ui:repeat>
+            </div>
+            <div class="card">
                 <p:carousel value="#{participanteController.processosSeletivos}" var="processoseletivo" numVisible="3" numScroll="3"
                             responsiveOptions="#{participanteController.responsiveOptions}">
                     <f:facet name="header">
-                        <h5>Basic</h5>
+                        <h5>Processos Seletivos</h5>
                     </f:facet>
                     <div class="product-item">
                         <div class="product-item-content">

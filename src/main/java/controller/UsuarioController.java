@@ -47,8 +47,12 @@ public class UsuarioController {
         return securityContext.getCallerPrincipal() != null;
     }
 
-    public boolean isAllowedToSeeUsers() {
+    public boolean isAllowedToSeeAdmin() {
         return securityContext.isCallerInRole("admin");
+    }
+    
+    public boolean isAllowedToSeeUser() {
+        return securityContext.isCallerInRole("user");
     }
 
     public String logout() throws ServletException {

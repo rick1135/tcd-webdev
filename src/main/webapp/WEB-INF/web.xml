@@ -60,6 +60,8 @@
         <web-resource-collection>
             <web-resource-name>Página do Participante</web-resource-name>
             <url-pattern>/app/participante.xhtml</url-pattern>
+            <web-resource-name>Detalhes newsletter</web-resource-name>
+            <url-pattern>/app/publicacaoDetail.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>

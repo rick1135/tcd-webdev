@@ -17,7 +17,7 @@ import model.usuario.Usuario;
  */
 @Local
 public interface DataServiceLocal {
-    void createUser(String username, String email, String password, String group);
+    void createUser(String username, String email, String password, String group, boolean newsletter);
     List<Usuario> getAllUsers();
     Usuario getUser(String username);
     public void salvarNovoProcessoSeletivo(ProcessoSeletivo processoSeletivo);

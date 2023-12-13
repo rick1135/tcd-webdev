@@ -34,7 +34,7 @@ public class DataService
     Pbkdf2PasswordHash passwordHasher;
 
     @Override
-    public void createUser(String username, String email, String password, String group) {
+    public void createUser(String username, String email, String password, String group, boolean newsletter) {
 
         // @see ApplicationConfig
         Map<String, String> parameters = new HashMap<>();
@@ -47,7 +47,8 @@ public class DataService
                 username,
                 email,
                 passwordHasher.generate(password.toCharArray()),
-                group
+                group,
+                newsletter
         );
         em.persist(newUser);
 //        em.flush();
