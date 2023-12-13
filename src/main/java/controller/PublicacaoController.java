@@ -2,17 +2,17 @@ package controller;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import controller.UsuarioController;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.persistence.Lob;
 import model.publicacao.Publicacao;
 import model.publicacao.PublicacaoServiceLocal;
-import util.TwitterBean;
 
 /**
  *
@@ -29,9 +29,8 @@ public class PublicacaoController implements Serializable {
     UsuarioController usuarioController;
 
     // TODO mudar twitter bean para um twitter service
-    @Inject
-    TwitterBean twitterBean;
-
+//    @Inject
+//    TwitterBean twitterBean;
     @Lob
     private String text;
 
@@ -58,10 +57,11 @@ public class PublicacaoController implements Serializable {
         publicacao.setConteudo(text);
         publicacao.setDataPublicacao(java.sql.Date.valueOf(localdate));
         publicacao.setDataEdicao(null);
-        if(publicacoes != null)
-            publicacao.setLinkTwitter(twitterBean.postTwitter("Nova publicação em nosso site Processos Seletivos! Acesse através do link: http://localhost:8080/publicacaoDetail.xhtml?idPublicacao=" + publicacoes.size() + 1));
-        else
-            publicacao.setLinkTwitter(twitterBean.postTwitter("Nova publicação em nosso site Processos Seletivos! Acesse através do link: http://localhost:8080/publicacaoDetail.xhtml?idPublicacao=1"));
+//        if(publicacoes != null)
+//            publicacao.setLinkTwitter(twitterBean.postTwitter("Nova publicação em nosso site Processos Seletivos! Acesse através do link: http://localhost:8080/publicacaoDetail.xhtml?idPublicacao=" + publicacoes.size() + 1));
+//        else
+//            publicacao.setLinkTwitter(twitterBean.postTwitter("Nova publicação em nosso site Processos Seletivos! Acesse através do link: http://localhost:8080/publicacaoDetail.xhtml?idPublicacao=1"));
+        publicacao.setLinkTwitter("Teste");
         publicacao.setTipo(Publicacao.TipoPublicacao.valueOf(tipo.toUpperCase()));
         publicacao.setTitulo(titulo);
         publicacao.setTrash(false);

@@ -11,7 +11,7 @@
                 <h2>Newsletter</h2>
                 <ui:repeat value="#{participanteController.newsletter}" var="noticia" varStatus="status">
                     <h:panelGroup>
-                        <p:link outcome="publicacaoDetail">
+                        <p:link outcome="/publicacaoDetail">
                             <f:param name="idPublicacao" value="#{noticia.id}" />
                             #{noticia.titulo}
                         </p:link>
