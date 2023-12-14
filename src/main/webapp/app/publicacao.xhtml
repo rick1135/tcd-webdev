@@ -7,7 +7,7 @@
 
     <ui:define name="content">
         <div class="card">
-            <h:form>
+            <h:form enctype="multipart/form-data">
                 <div class="field">
                     <p:outputLabel for="titulo" styleClass="block">Titulo da publicação</p:outputLabel>
                     <p:inputText id="titulo" styleClass="block" value="#{publicacaoController.titulo}"/>
@@ -20,6 +20,10 @@
                     <f:selectItem itemLabel="Gabaritos e Provas" itemValue="GABARITOEPROVA" />
                 </p:selectOneMenu>
                 <p:textEditor widgetVar="editor1" value="#{publicacaoController.text}" height="300px"  />
+
+                <input type="file" id="filepicker" name="filepicker" accept="image/*,.pdf" />
+                <h:commandButton value="Upload" action="#{publicacaoController.uploadFile}" />
+
 
                 <p:commandButton value="Save" update="@form" icon="pi pi-check" action="#{publicacaoController.publicar()}"/>
             </h:form>

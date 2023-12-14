@@ -8,8 +8,12 @@ import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth10aService;
 import javax.inject.Named;
-import javax.faces.view.ViewScoped;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.servlet.ServletContext;
 import org.json.JSONObject;
 
 /**
@@ -20,21 +24,35 @@ import org.json.JSONObject;
 @ViewScoped
 public class TwitterBean implements Serializable {
 
+    @Inject
+    private ServletContext ctx;
+
     private static final String PROTECTED_RESOURCE_URL = "https://api.twitter.com/2/tweets";
 
-    private static final String apiKey = System.getenv("TWITTER_API_KEY");
-    private static final String apiSecret = System.getenv("TWITTER_API_SECRET");
-    private static final String accessTokenStr = System.getenv("TWITTER_ACCESS_TOKEN");
-    private static final String accessTokenSecretStr = System.getenv("TWITTER_ACCESS_TOKEN_SECRET");
+    private String apiKey;
+    private String apiSecret;
+    private String accessTokenStr;
+    private String accessTokenSecretStr;
 
-    private final OAuth10aService service;
-    private final OAuth1AccessToken accessToken;
+    private OAuth10aService service;
+    private OAuth1AccessToken accessToken;
 
-    public TwitterBean() {
+    @PostConstruct
+    public void init() {
+        apiKey = ctx.getInitParameter("x.API_KEY");
+        apiSecret = ctx.getInitParameter("x.API_SECRET");
+        accessTokenStr = ctx.getInitParameter("x.TWITTER_ACCESS_TOKEN");
+        accessTokenSecretStr = ctx.getInitParameter("x.TWITTER_ACCESS_TOKEN_SECRET");
+        System.out.println("Api key: " + apiKey);
         service = new ServiceBuilder(apiKey)
                 .apiSecret(apiSecret)
                 .build(TwitterApi.instance());
         accessToken = new OAuth1AccessToken(accessTokenStr, accessTokenSecretStr);
+
+    }
+
+    public TwitterBean() {
+
     }
 
     public String postTwitter(String tweetText) throws Exception {
@@ -57,10 +75,10 @@ public class TwitterBean implements Serializable {
                 String tweetUrl = "https://twitter.com/i/web/status/" + tweetId;
                 System.out.println("Link to the tweet: " + tweetUrl);
                 return tweetUrl;
-            }else{
+            } else {
                 return null;
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/J2EE/EJB30/SessionLocal.java to edit this template
- */
 package model.publicacao;
 
 import java.util.List;
@@ -23,5 +19,4 @@ public interface PublicacaoServiceLocal {
     public List<Publicacao> getPublicacoesByTipo(Publicacao.TipoPublicacao tipo);
     
     public List<Publicacao> getNoticiasUltimosQuinzeDias();
-
 }

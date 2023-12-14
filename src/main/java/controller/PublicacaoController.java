@@ -1,18 +1,28 @@
 package controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.persistence.Lob;
 import model.publicacao.Publicacao;
 import model.publicacao.PublicacaoServiceLocal;
+import util.TwitterBean;
+import javax.inject.Named;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 
 /**
  *
@@ -29,8 +39,9 @@ public class PublicacaoController implements Serializable {
     UsuarioController usuarioController;
 
     // TODO mudar twitter bean para um twitter service
-//    @Inject
-//    TwitterBean twitterBean;
+    @Inject
+    TwitterBean twitterBean;
+
     @Lob
     private String text;
 
@@ -47,6 +58,8 @@ public class PublicacaoController implements Serializable {
         if (tipo != null && !tipo.isEmpty()) {
             publicacoes = publicacaoService.getPublicacoesByTipo(Publicacao.TipoPublicacao.valueOf(tipo.toUpperCase()));
         }
+        System.out.println(publicacoes);
+        System.out.println(tipo);
     }
 
     public void publicar() throws Exception {
@@ -57,11 +70,11 @@ public class PublicacaoController implements Serializable {
         publicacao.setConteudo(text);
         publicacao.setDataPublicacao(java.sql.Date.valueOf(localdate));
         publicacao.setDataEdicao(null);
-//        if(publicacoes != null)
-//            publicacao.setLinkTwitter(twitterBean.postTwitter("Nova publicação em nosso site Processos Seletivos! Acesse através do link: http://localhost:8080/publicacaoDetail.xhtml?idPublicacao=" + publicacoes.size() + 1));
-//        else
-//            publicacao.setLinkTwitter(twitterBean.postTwitter("Nova publicação em nosso site Processos Seletivos! Acesse através do link: http://localhost:8080/publicacaoDetail.xhtml?idPublicacao=1"));
-        publicacao.setLinkTwitter("Teste");
+        if (publicacoes != null) {
+            publicacao.setLinkTwitter(twitterBean.postTwitter("Nova publicação em nosso site Processos Seletivos! Acesse através do link: http://localhost:8080/publicacaoDetail.xhtml?idPublicacao=" + publicacoes.size() + 1));
+        } else {
+            publicacao.setLinkTwitter(twitterBean.postTwitter("Nova publicação em nosso site Processos Seletivos! Acesse através do link: http://localhost:8080/publicacaoDetail.xhtml?idPublicacao=1"));
+        }
         publicacao.setTipo(Publicacao.TipoPublicacao.valueOf(tipo.toUpperCase()));
         publicacao.setTitulo(titulo);
         publicacao.setTrash(false);
@@ -101,21 +114,36 @@ public class PublicacaoController implements Serializable {
         return publicacoes;
     }
 
-//    private ExternalContext getExternalContext() {
-//        return facesContext.getExternalContext();
-//    }
-//    public String getFromURL() {
-//        FacesContext context = FacesContext.getCurrentInstance();
-//        String viewId = context.getViewRoot().getViewId();
-//
-//        String noticia = viewId.substring(1, viewId.lastIndexOf('.'));
-//
-//        return noticia;
-//    }
-//    public String navigateToPublicacao() {
-//        FacesContext context = FacesContext.getCurrentInstance();
-//        String tipo = context.getExternalContext().getRequestParameterMap().get("tipo");
-//
-//        return "publicacao.xhtml?faces-redirect=true&tipo=" + tipo;
-//    }
+    public void uploadFile() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+
+        String basePath = externalContext.getRealPath("/");
+
+        String uploadDir = basePath + "\\uploads" + File.separator;
+
+        try {
+            Part filePart = request.getPart("filepicker");
+            System.out.println("PART: " + filePart.getSubmittedFileName());
+            System.out.println("PATH: " + uploadDir);
+            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+
+            File uploads = new File(uploadDir);
+            if (!uploads.exists() && !uploads.mkdirs()) {
+                throw new IOException("Unable to create upload directory");
+            }
+
+            File file = new File(uploads, fileName);
+
+            try (InputStream input = filePart.getInputStream()) {
+                Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                context.addMessage(null, new FacesMessage("File upload was successful."));
+            } catch (IOException e) {
+                context.addMessage(null, new FacesMessage("File upload was unsuccessful."));
+            }
+        } catch (IOException | ServletException e) {
+            // Handle the exception
+        }
+    }
 }
