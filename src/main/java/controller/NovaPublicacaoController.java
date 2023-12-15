@@ -151,8 +151,20 @@ public class NovaPublicacaoController implements Serializable {
             this.selectedPublicacao.setAutor(usuarioController.getCurrentUser().getUsername());
             this.selectedPublicacao.setDataPublicacao(Calendar.getInstance().getTime());
             this.selectedPublicacao.setDataEdicao(null);
-            // TODO link twitter
-            this.selectedPublicacao.setLinkTwitter(twitterBean.postTwitter("Nova publicação em nosso site Processos Seletivos! Acesse através do link: http://localhost:8080/publicacaoDetail.xhtml?idPublicacao=1"));
+            List<Publicacao> publicacoes = publicacaoService.getAllPublicacoes();
+
+            if (publicacoes != null && !publicacoes.isEmpty()) {
+                Long lastId = publicacoes.get(publicacoes.size() - 1).getId();
+                this.selectedPublicacao.setLinkTwitter(twitterBean.postTwitter(
+                        "Nova publicação em nosso site Processos Seletivos! Acesse através do link: "
+                        + "http://localhost:8080/publicacaoDetail.xhtml?idPublicacao=" + (lastId + 1)
+                ));
+            } else {
+                this.selectedPublicacao.setLinkTwitter(twitterBean.postTwitter(
+                        "Nova publicação em nosso site Processos Seletivos! Acesse através do link: "
+                        + "http://localhost:8080/publicacaoDetail.xhtml?idPublicacao=1"
+                ));
+            }
             this.selectedPublicacao.setTrash(false);
             this.selectedPublicacao.setFileMetadata(uploadFile());
             System.out.println("TIPO EDITAL " + this.selectedPublicacao.getTipo());
@@ -160,14 +172,14 @@ public class NovaPublicacaoController implements Serializable {
                 ProcessoSeletivo processoSeletivo = new ProcessoSeletivo();
                 processoSeletivo.setFase(Fase.INSCRICAO);
                 this.selectedPublicacao.setProcessoSeletivo(processoSeletivo);
-            }else{
+            } else {
                 // TODO temporario
                 ProcessoSeletivo processoSeletivo = new ProcessoSeletivo();
                 List<Usuario> candidatos = new ArrayList<>();
                 processoSeletivo.setCandidatos(candidatos);
                 this.selectedPublicacao.setProcessoSeletivo(processoSeletivo);
             }
-                
+
             this.publicacoes.add(this.selectedPublicacao);
             publicacaoService.savePublicacao(this.selectedPublicacao);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Publicação Adicionada"));
