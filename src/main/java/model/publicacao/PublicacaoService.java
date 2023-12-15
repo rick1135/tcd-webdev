@@ -50,4 +50,12 @@ public class PublicacaoService implements PublicacaoServiceLocal {
                 .setParameter("data", fifteenDaysAgo, TemporalType.DATE)
                 .getResultList();
     }
+
+    public void removePublicacao(Long id) {
+        Publicacao publicacao = findPublicacaoById(id);
+        if (publicacao != null) {
+            entityManager.remove(publicacao);
+        }
+    }
+
 }

@@ -193,9 +193,14 @@ public class NovaPublicacaoController implements Serializable {
     }
 
     public void deletePublicacao() {
-        this.publicacoes.remove(this.selectedPublicacao);
-        this.selectedPublicacao = null;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Publicação Removida"));
+        if (this.selectedPublicacao != null) {
+            this.publicacoes.remove(this.selectedPublicacao);
+            publicacaoService.removePublicacao(this.selectedPublicacao.getId());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Publicação Removida"));
+            this.selectedPublicacao = null;
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "No publicação selected for deletion"));
+        }
         PrimeFaces.current().ajax().update("form:messages", "form:dt-publicacoes");
     }
 
@@ -212,7 +217,7 @@ public class NovaPublicacaoController implements Serializable {
         return this.selectedPublicacoes != null && !this.selectedPublicacoes.isEmpty();
     }
 
-    public void deleteSelectedProducts() {
+    public void deleteSelectedPublicacoes() {
         this.publicacoes.removeAll(this.selectedPublicacoes);
         this.selectedPublicacoes = null;
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Publicacoes Removidas"));

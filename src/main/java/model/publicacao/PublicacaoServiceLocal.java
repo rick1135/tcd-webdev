@@ -19,4 +19,6 @@ public interface PublicacaoServiceLocal {
     public List<Publicacao> getPublicacoesByTipo(Publicacao.TipoPublicacao tipo);
 
     public List<Publicacao> getNoticiasUltimosQuinzeDias();
+    
+    public void removePublicacao(Long id);
 }
