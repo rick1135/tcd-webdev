@@ -17,7 +17,7 @@
                                 <p:commandButton value="Nova Publicação" icon="pi pi-plus" actionListener="#{novaPublicacaoController.openNew}" update="manage-publicacao-content" oncomplete="PF('managePublicacaoDialog').show()" 
                                                  styleClass="ui-button-success" style="margin-right: .5rem" />
                                 <p:commandButton id="delete-publicacoes-button" value="#{novaPublicacaoController.deleteButtonMessage}" icon="pi pi-trash" actionListener="#{novaPublicacaoController.deleteSelectedPublicacoes}" 
-                                                 styleClass="ui-button-danger" disabled="#{!novaPublicacaoController.hasSelectedPublicacoes()}" update="@this">
+                                                 styleClass="ui-button-danger" disabled="#{!novaPublicacaoController.hasSelectedPublicacoes()}" update="@this" rendered="false">
                                     <p:confirm header="Confirmação" message="Remover as publicações selecionadas?" icon="pi pi-exclamation-triangle" />
                                 </p:commandButton>
                             </p:toolbarGroup>

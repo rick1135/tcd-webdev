@@ -115,7 +115,7 @@ public class NovaPublicacaoController implements Serializable {
                 fileMetadata.setFileName(fileName);
                 fileMetadata.setFilePath(basePath + fileName);
                 fileMetadata.setFileSize(file.length());
-                fileMetadata.setMimeType(Files.probeContentType(file.toPath())); 
+                fileMetadata.setMimeType(Files.probeContentType(file.toPath()));
                 fileMetadata.setHashCode(computeFileHash(file));
 
                 context.addMessage(null, new FacesMessage("File upload was successful."));
@@ -218,9 +218,16 @@ public class NovaPublicacaoController implements Serializable {
     }
 
     public void deleteSelectedPublicacoes() {
-        this.publicacoes.removeAll(this.selectedPublicacoes);
-        this.selectedPublicacoes = null;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Publicacoes Removidas"));
+        if (this.selectedPublicacoes != null && !this.selectedPublicacoes.isEmpty()) {
+            for (Publicacao publicacao : this.selectedPublicacoes) {
+                publicacaoService.removePublicacao(publicacao.getId());
+            }
+            this.publicacoes.removeAll(this.selectedPublicacoes);
+            this.selectedPublicacoes = null;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Publicacoes Removidas"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Nenhuma publicação selecionada para remoção"));
+        }
         PrimeFaces.current().ajax().update("form:messages", "form:dt-publicacoes");
     }
 }
