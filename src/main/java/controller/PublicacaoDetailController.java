@@ -38,19 +38,14 @@ public class PublicacaoDetailController implements Serializable {
     public void init() {
         FacesContext context = FacesContext.getCurrentInstance();
         id = Long.valueOf(context.getExternalContext().getRequestParameterMap().get("idPublicacao"));
-        System.out.println("ID>>" + id);
         if (id != null) {
             publicacao = publicacaoService.findPublicacaoById(id);
         }
-        System.out.println("Publicacao>> " + publicacao.getTitulo());
     }
 
     public void downloadFile() {
-        System.out.println("Publicacao@@: " + publicacao);
-        System.out.println("Metadata@@: " + publicacao.getFileMetadata());
         try {
             if (publicacao != null && publicacao.getFileMetadata() != null) {
-                System.out.println("FilePath@@: " + publicacao.getFileMetadata().getFilePath());
                 File fileToDownload = new File(publicacao.getFileMetadata().getFilePath());
                 InputStream input = new FileInputStream(fileToDownload);
                 file = DefaultStreamedContent.builder()
@@ -58,7 +53,6 @@ public class PublicacaoDetailController implements Serializable {
                         .contentType(publicacao.getFileMetadata().getMimeType())
                         .stream(() -> input)
                         .build();
-                System.out.println("File: " + file);
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No file available for download."));
                 PrimeFaces.current().ajax().addCallbackParam("success", false);
@@ -73,7 +67,6 @@ public class PublicacaoDetailController implements Serializable {
         if (FacesContext.getCurrentInstance().getRenderResponse()) {
             return new DefaultStreamedContent();
         } else {
-            System.out.println("File@@: " + file);
             return file;
         }
     }

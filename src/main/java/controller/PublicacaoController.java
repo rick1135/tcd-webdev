@@ -10,7 +10,6 @@ import model.publicacao.Publicacao;
 import model.publicacao.PublicacaoServiceLocal;
 import javax.inject.Named;
 
-
 /**
  *
  * @author rktds
@@ -21,7 +20,7 @@ public class PublicacaoController implements Serializable {
 
     @Inject
     PublicacaoServiceLocal publicacaoService;
-    
+
     private String tipo;
 
     private List<Publicacao> publicacoes;
@@ -33,8 +32,6 @@ public class PublicacaoController implements Serializable {
         if (tipo != null && !tipo.isEmpty()) {
             publicacoes = publicacaoService.getPublicacoesByTipo(Publicacao.TipoPublicacao.valueOf(tipo.toUpperCase()));
         }
-        System.out.println(publicacoes);
-        System.out.println(tipo);
     }
 
     public List<Publicacao> getPublicacoes() {

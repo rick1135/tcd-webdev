@@ -38,7 +38,6 @@ public class CadastroController implements Serializable {
     }
 
     public String cadastrar() {
-        System.out.println(usuario.getUsername());
         try {
             dataService.createUser(this.usuario.getUsername(), this.usuario.getEmail(), this.usuario.getPassword(), this.usuario.getGroup(), this.usuario.getNewsletter());
             if(currentUser != null)

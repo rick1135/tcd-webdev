@@ -98,8 +98,6 @@ public class NovaPublicacaoController implements Serializable {
             if (filePart == null) {
                 return null;
             }
-            System.out.println("PART: " + filePart.getSubmittedFileName());
-            System.out.println("PATH: " + uploadDir);
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 
             File uploads = new File(uploadDir);
@@ -167,7 +165,6 @@ public class NovaPublicacaoController implements Serializable {
             }
             this.selectedPublicacao.setTrash(false);
             this.selectedPublicacao.setFileMetadata(uploadFile());
-            System.out.println("TIPO EDITAL " + this.selectedPublicacao.getTipo());
             if (this.selectedPublicacao.getTipo() == Publicacao.TipoPublicacao.EDITAL) {
                 ProcessoSeletivo processoSeletivo = new ProcessoSeletivo();
                 processoSeletivo.setFase(Fase.INSCRICAO);
