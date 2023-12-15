@@ -16,32 +16,32 @@
     
    <context-param>
         <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
-        <param-value>6Lfc_iopAAAAABPpTPVyxbDn3o27tZ-8FMTnBzqL</param-value>
+        <param-value>chave_aqui</param-value>
     </context-param>
     
     <context-param>
         <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
-        <param-value>6Lfc_iopAAAAAJbHN0ywTj1ozy1zNk7DVWVn_gYT</param-value>
+        <param-value>chave_aqui</param-value>
     </context-param>
     
     <context-param>
         <param-name>x.API_KEY</param-name>
-        <param-value>ppX0GDcGNQTZvJp90JIRdKJgF</param-value>
+        <param-value>chave_aqui</param-value>
     </context-param>
     
     <context-param>
         <param-name>x.API_SECRET</param-name>
-        <param-value>2PNgIopvNxxpUVmHKfSZPQo5qvSU6CNHAGQhG4v3Vk8p1LcX6k</param-value>
+        <param-value>chave_aqui</param-value>
     </context-param>
     
     <context-param>
         <param-name>x.TWITTER_ACCESS_TOKEN</param-name>
-        <param-value>1733245989794807808-RNLnRmNuFNMkSpuUWv668YEC0S4mBk</param-value>
+        <param-value>chave_aqui</param-value>
     </context-param>
     
     <context-param>
         <param-name>x.TWITTER_ACCESS_TOKEN_SECRET</param-name>
-        <param-value>TJkP2PMgtUm9x4PdK7ccG6zINoS4MjCLOIJLqO5jvwyKJ</param-value>
+        <param-value>chave_aqui</param-value>
     </context-param>
     
     <servlet>
