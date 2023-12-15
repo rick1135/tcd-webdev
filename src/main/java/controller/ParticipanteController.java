@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -19,7 +20,7 @@ import org.primefaces.model.ResponsiveOption;
  * @author rktds
  */
 @Named
-@SessionScoped
+@RequestScoped
 public class ParticipanteController implements Serializable {
 
     @Inject
@@ -45,6 +46,7 @@ public class ParticipanteController implements Serializable {
         responsiveOptions.add(new ResponsiveOption("560px", 1, 1));
 
         Usuario currentUser = usuarioController.getCurrentUser();
+        System.out.println("CurrentUser: " + currentUser);
         if (currentUser != null) {
             if (currentUser.getNewsletter()) {
                 newsletter = publicacaoService.getNoticiasUltimosQuinzeDias();

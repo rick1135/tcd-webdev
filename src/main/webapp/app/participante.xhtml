@@ -9,11 +9,11 @@
         <h:form id="form">
             <div class="card">
                 <h2>Newsletter</h2>
-                <ui:repeat value="#{usuarioController.newsletter}" var="noticia" varStatus="status">
+                <ui:repeat value="#{participanteController.newsletter}" var="newsletter" varStatus="status">
                     <h:panelGroup>
                         <p:link outcome="/publicacaoDetail">
-                            <f:param name="idPublicacao" value="#{noticia.id}" />
-                            #{noticia.titulo}
+                            <f:param name="idPublicacao" value="#{newsletter.id}" />
+                            #{newsletter.titulo}
                         </p:link>
                         <br/>
                     </h:panelGroup>
