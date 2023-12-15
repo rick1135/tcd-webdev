@@ -1,16 +1,16 @@
 .carousel-item-margin {
-    margin: 10px; /* Adjust the margin as needed */
+    margin: 10px;
 }
 
 .text-preview {
-  display: block; /* or inline-block */
-  max-height: 4.5em; /* Adjust the max-height to fit the number of lines you want */
+  display: block;
+  max-height: 4.5em;
   overflow: hidden;
   text-overflow: ellipsis;
   word-wrap: break-word;
-  line-height: 1.5em; /* Adjust line-height for better text spacing */
+  line-height: 1.5em;
 }
-/* Add your customizations of the layout variables here */
+
 @-webkit-keyframes fadeInDown {
   from {
     opacity: 0;
@@ -2992,7 +2992,7 @@ a {
   }
 }
 .layout-footer {
-  padding: 16px 120px;
+  padding: 16px 80px;
   border-top: solid 1px #ebedef;
 }
 .layout-footer span {

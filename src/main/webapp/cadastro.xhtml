@@ -10,31 +10,31 @@
                 <div class="field grid">
                     <p:outputLabel for="nome" styleClass="col-fixed flex justify-content-end" style="width:100px" value="Nome"/>
                     <div class="col">
-                        <p:inputText id="nome" value="#{cadastroController.nome}" /> 
+                        <p:inputText id="nome" value="#{cadastroController.usuario.username}" /> 
                     </div>
                 </div>
                 <div class="field grid">
                     <p:outputLabel for="email" styleClass="col-fixed flex justify-content-end" style="width:100px" value="Email"/>
                     <div class="col">
-                        <p:inputText id="email" value="#{cadastroController.email}" /> 
+                        <p:inputText id="email" value="#{cadastroController.usuario.email}" /> 
                     </div>
                 </div>
                 <div class="field grid">
                     <p:outputLabel for="pwd1" styleClass="col-fixed flex justify-content-end" style="width:100px" value="Senha"/>
                     <div class="col">
-                        <p:password id="pwd1" value="#{cadastroController.senha}" match="pwd2" label="Password 1" required="true" feedback="true"/>
+                        <p:password id="pwd1" value="#{cadastroController.usuario.password}" match="pwd2" label="Password 1" required="true" feedback="true"/>
                     </div>
                 </div>
                 <div class="field grid">
                     <p:outputLabel for="pwd2" styleClass="col-fixed flex justify-content-end" style="width:100px" value="Confirme"/>
                     <div class="col">
-                        <p:password id="pwd2" value="#{cadastroController.senha}" label="Password 2" required="true"/>
+                        <p:password id="pwd2" value="#{cadastroController.usuario.password}" label="Password 2" required="true"/>
                     </div>
                 </div>
                 <div class="field grid">
                     <p:outputLabel for="newsletter" styleClass="col-fixed flex justify-content-end" style="width:100px" value="Newsletter"/>
                     <div class="col">
-                        <p:selectBooleanCheckbox id="newsletter" value="#{cadastroController.newsLetter}"/>
+                        <p:selectBooleanCheckbox id="newsletter" value="#{cadastroController.usuario.newsletter}"/>
                     </div>
                 </div>
                 <div class="card">

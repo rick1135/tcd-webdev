@@ -10,8 +10,8 @@ import model.JpaEntity;
 
 @NamedQueries({
     @NamedQuery(
-            name = "Usuario.findByUsername",
-            query = "SELECT u FROM Usuario u WHERE u.username = :username"
+            name = "Usuario.findByEmail",
+            query = "SELECT u FROM Usuario u WHERE u.email = :email"
     ),
     @NamedQuery(
             name = "Usuario.all",
@@ -31,7 +31,7 @@ public class Usuario extends JpaEntity implements Serializable {
     private String password;
 
     @Column(name = "user_group", nullable = false)
-    private String group;
+    private String group = "Candidato";
 
     @Column(name = "newsletter")
     private boolean newsletter = false;

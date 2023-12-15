@@ -1,36 +1,61 @@
 package model.publicacao;
 
-import model.usuario.Usuario;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import model.FileMetadata.FileMetadata;
 import model.JpaEntity;
+import model.processoseletivo.ProcessoSeletivo;
 
 @Entity
-public class Publicacao extends JpaEntity{
+public class Publicacao extends JpaEntity {
 
     public enum TipoPublicacao {
         NOTICIA, EDITAL, ORIENTACAO, GABARITOEPROVA;
     }
 
-    private String titulo;
-    
     @Column(columnDefinition = "TEXT")
     private String conteudo;
+    private String titulo;
+    private String autor;
+    private String linkTwitter;
+
     private Date dataPublicacao;
     private Date dataEdicao;
 
     @Enumerated(EnumType.STRING)
     private TipoPublicacao tipo;
 
-    private String autor;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "file_metadata_id")
+    private FileMetadata fileMetadata;
 
-    private String linkTwitter;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "processo_seletivo_id")
+    private ProcessoSeletivo processoSeletivo;
+
+    public Publicacao() {
+    }
+
+    public Publicacao(String conteudo, String titulo, String autor, String linkTwitter, Date dataPublicacao, Date dataEdicao, TipoPublicacao tipo, FileMetadata fileMetadata, ProcessoSeletivo processoSeletivo) {
+        this.conteudo = conteudo;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.linkTwitter = linkTwitter;
+        this.dataPublicacao = dataPublicacao;
+        this.dataEdicao = dataEdicao;
+        this.tipo = tipo;
+        this.fileMetadata = fileMetadata;
+        this.processoSeletivo = processoSeletivo;
+    }
 
     public String getTitulo() {
         return titulo;
@@ -86,6 +111,22 @@ public class Publicacao extends JpaEntity{
 
     public void setLinkTwitter(String linkTwitter) {
         this.linkTwitter = linkTwitter;
+    }
+
+    public FileMetadata getFileMetadata() {
+        return fileMetadata;
+    }
+
+    public void setFileMetadata(FileMetadata fileMetadata) {
+        this.fileMetadata = fileMetadata;
+    }
+
+    public ProcessoSeletivo getProcessoSeletivo() {
+        return processoSeletivo;
+    }
+
+    public void setProcessoSeletivo(ProcessoSeletivo processoSeletivo) {
+        this.processoSeletivo = processoSeletivo;
     }
 
     @Override

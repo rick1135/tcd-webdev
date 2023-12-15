@@ -1,12 +1,10 @@
 package controller;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import model.processoseletivo.ProcessoSeletivo;
@@ -31,7 +29,7 @@ public class ParticipanteController implements Serializable {
     PublicacaoServiceLocal publicacaoService;
 
     @Inject
-    UsuarioController usuarioController;  // Injecting UsuarioController
+    UsuarioController usuarioController;
 
     private List<Publicacao> newsletter;
     private List<ProcessoSeletivo> processosSeletivos;
@@ -54,7 +52,6 @@ public class ParticipanteController implements Serializable {
             }
             processosSeletivos = processoService.findByUsuarioId(currentUser.getId());
         } else {
-            // Handle the case where no user is logged in
             processosSeletivos = new ArrayList<>();
         }
     }

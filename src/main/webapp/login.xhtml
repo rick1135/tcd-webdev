@@ -1,50 +1,66 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui" template="/WEB-INF/templates/template.xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="title">Login</ui:define>
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>Processos Seletivos - Login</title>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    </h:head>
 
-    <f:metadata>
-        <f:event type="preRenderView" listener="#{usuarioController.logout}" />
-    </f:metadata>
-    
-    <ui:define name="content">
-        <div class="card">
-            <h3 style="text-align: center;">Bem vindo</h3>
-            <h:form id="login">
+    <h:body styleClass="login-body">
+        <div class="login-image">
+            <p:graphicImage name="images/pages/bg-header-login.png" library="rain-layout"/>
+        </div>
+        <div class="login-card">
+            <h1>PROCESSOS SELETIVOS <span>LOGIN</span></h1>
+            <span>Bem vindo, por favor preencha suas credenciais para ter acesso ao sistema<br/>Processos Seletivos</span>
+            <h:form id="login" class="form-group">
                 <p:messages id="messages" globalOnly="true"/>
-
-                <div class="field grid">
-                    <p:outputLabel for="username" styleClass="col-fixed flex justify-content-end" style="width:100px" value="Username"/>
-                    <div class="col">
-                        <p:inputText id="username" value="#{loginController.username}"/>
-                    </div>
+                <div class="form-group">
+                    <span>Email</span>
+                    <p:inputText id="email" value="#{loginController.email}" placeholder="nome@exemplo.com"/>
                 </div>
-
-                <div class="field grid">
-                    <p:outputLabel for="password" styleClass="col-fixed flex justify-content-end" style="width:100px" value="Senha"/>
-                    <div class="col">
-                        <p:inputText id="password" value="#{loginController.password}" type="password"/>
-                    </div>
+                <div class="form-group">
+                    <span>Password</span>
+                    <p:password id="password" value="#{loginController.password}" placeholder="escreva sua senha..."/>
                 </div>
-
-                <div class="field grid ">
-                    <div class="col flex justify-content-center min-w-max">
+                <div class="form-footer">
+                    <div class="checkbox">
+                        <span>Continuar Logado</span>
+                        <p:selectBooleanCheckbox />
+                    </div>
+                    <a href="#">Esqueceu a senha?</a>
+                </div>
+                <div class="flex grid min-w-full">
+                    <div class="col-6">
                         <p:commandButton 
                             id="submit" 
                             update="@form" 
                             value="Login" 
+                            class="min-w-full" 
                             action="#{loginController.execute}" 
                             ajax="false"/>
                     </div>
-                    <div class="col flex justify-content-center min-w-max">
+                    <div class="col-6">
                         <p:commandButton
                             type="button" 
                             value="Cadastrar" 
+                            class="min-w-full" 
                             onclick="window.location.href = '/cadastro.xhtml'" />
                     </div>
                 </div>
             </h:form>
         </div>
-    </ui:define>
-</ui:composition>
+        <h:outputStylesheet name="css/primeflex.min.css" library="rain-layout" />
+        <h:outputStylesheet name="css/layout-blue-light.css" library="rain-layout" />
+    </h:body>
+</html>

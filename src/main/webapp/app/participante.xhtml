@@ -9,7 +9,7 @@
         <h:form id="form">
             <div class="card">
                 <h2>Newsletter</h2>
-                <ui:repeat value="#{participanteController.newsletter}" var="noticia" varStatus="status">
+                <ui:repeat value="#{usuarioController.newsletter}" var="noticia" varStatus="status">
                     <h:panelGroup>
                         <p:link outcome="/publicacaoDetail">
                             <f:param name="idPublicacao" value="#{noticia.id}" />
@@ -20,8 +20,7 @@
                 </ui:repeat>
             </div>
             <div class="card">
-                <p:carousel value="#{participanteController.processosSeletivos}" var="processoseletivo" numVisible="3" numScroll="3"
-                            responsiveOptions="#{participanteController.responsiveOptions}">
+                <p:carousel value="#{participanteController.processosSeletivos}" var="processoseletivo" numVisible="3" numScroll="3">
                     <f:facet name="header">
                         <h5>Processos Seletivos</h5>
                     </f:facet>
@@ -34,9 +33,10 @@
                                     </h:outputText>
                                 </h6>
                                 <div class="mt-5">
-                                    <p:commandButton type="button" icon="pi pi-search" styleClass="rounded-button mr-2" />
-                                    <p:commandButton type="button" icon="pi pi-star" styleClass="ui-button-success rounded-button mr-2" />
-                                    <p:commandButton type="button" icon="pi pi-cog" styleClass="ui-button-help rounded-button" />
+                                    <p:link outcome="/publicacaoDetail" styleClass="rounded-button mr-2">
+                                        <i class="pi pi-eye"></i>
+                                        <f:param name="idPublicacao" value="#{processoseletivo.id}"/>
+                                    </p:link>
                                 </div>
                             </div>
                         </div>

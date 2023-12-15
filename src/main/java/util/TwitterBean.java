@@ -10,7 +10,6 @@ import com.github.scribejava.core.oauth.OAuth10aService;
 import javax.inject.Named;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;

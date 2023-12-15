@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/J2EE/EJB30/StatelessEjbClass.java to edit this template
- */
 package model.publicacao;
 
 import java.util.Calendar;
@@ -23,10 +19,10 @@ public class PublicacaoService implements PublicacaoServiceLocal {
     private EntityManager entityManager;
 
     public void savePublicacao(Publicacao publicacao) {
-        if (publicacao.getId() != null && entityManager.contains(publicacao)) {
-            entityManager.merge(publicacao);
-        } else {
+        if (publicacao.getId() == null) {
             entityManager.persist(publicacao);
+        } else {
+            entityManager.merge(publicacao);
         }
     }
 

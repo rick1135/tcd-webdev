@@ -1,0 +1,121 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="./../WEB-INF/templates/template.xhtml">
+
+    <ui:define name="content">
+        <h:form id="form" enctype="multipart/form-data">
+            <div class="grid crud-demo">
+                <div class="col-12">
+                    <div class="card">
+                        <p:growl id="messages" showDetail="true" />
+
+                        <p:toolbar styleClass="mb-4">
+                            <p:toolbarGroup>
+                                <p:commandButton value="Nova Publicação" icon="pi pi-plus" actionListener="#{novaPublicacaoController.openNew}" update="manage-publicacao-content" oncomplete="PF('managePublicacaoDialog').show()" 
+                                                 styleClass="ui-button-success" style="margin-right: .5rem" />
+                                <p:commandButton id="delete-publicacoes-button" value="#{novaPublicacaoController.deleteButtonMessage}" icon="pi pi-trash" actionListener="#{novaPublicacaoController.deleteSelectedPublicacoes}" 
+                                                 styleClass="ui-button-danger" disabled="#{!novaPublicacaoController.hasSelectedPublicacoes()}" update="@this">
+                                    <p:confirm header="Confirmação" message="Remover as publicações selecionadas?" icon="pi pi-exclamation-triangle" />
+                                </p:commandButton>
+                            </p:toolbarGroup>
+                        </p:toolbar>
+
+                        <p:dataTable id="dt-publicacoes" widgetVar="dtPublicacoes" var="publicacao" value="#{novaPublicacaoController.publicacoes}" reflow="true" styleClass="products-table"
+                                     selection="#{novaPublicacaoController.selectedPublicacoes}" rowKey="#{publicacao.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                <div class="products-table-header">
+                                    <span style="font-weight: bold">Gerenciar Publicações</span>
+
+                                    <span class="filter-container ui-input-icon-left">
+                                        <i class="pi pi-search"></i>
+                                        <p:inputText id="globalFilter" onkeyup="PF('dtPublicacoes').filter()" placeholder="Search" />
+                                    </span>
+                                </div>
+                            </f:facet>
+
+                            <p:ajax event="rowSelect" update=":form:delete-publicacoes-button" />
+                            <p:ajax event="rowUnselect" update=":form:delete-publicacoes-button" />
+                            <p:ajax event="rowSelectCheckbox" update=":form:delete-publicacoes-button" />
+                            <p:ajax event="rowUnselectCheckbox" update=":form:delete-publicacoes-button" />
+                            <p:ajax event="toggleSelect" update=":form:delete-publicacoes-button" />
+
+                            <p:column headerText="Autor" sortBy="#{publicacao.autor}">
+                                <h:outputText value="#{publicacao.autor}" />
+                            </p:column>
+                            <p:column headerText="Tipo" sortBy="#{publicacao.tipo}">
+                                <h:outputText value="#{publicacao.tipo}" />
+                            </p:column>
+                            <p:column headerText="Título" sortBy="#{publicacao.titulo}">
+                                <h:outputText value="#{publicacao.titulo}" />
+                            </p:column>
+                            <p:column headerText="Data Publicação" sortBy="#{publicacao.dataPublicacao}">
+                                <h:outputText value="#{publicacao.dataPublicacao}">
+                                    <f:convertDateTime pattern="dd-MM-yyyy HH:mm"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Data Edição" sortBy="#{publicacao.dataEdicao}">
+                                <h:outputText value="#{publicacao.dataEdicao}">
+                                    <f:convertDateTime pattern="dd-MM-yyyy HH:mm"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column exportable="false">
+                                <p:commandButton icon="pi pi-pencil" update=":form:manage-publicacao-content" oncomplete="PF('managePublicacaoDialog').show()" 
+                                                 styleClass="edit-button rounded-button ui-button-success" process="@this">
+                                    <f:setPropertyActionListener value="#{publicacao}" target="#{novaPublicacaoController.selectedPublicacao}" />
+                                </p:commandButton>
+                                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this" oncomplete="PF('deletePublicacaoDialog').show()" >
+                                    <f:setPropertyActionListener value="#{publicacao}" target="#{novaPublicacaoController.selectedPublicacao}" />
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:dialog header="Detalhes da Publicacao" showEffect="fade" modal="true" widgetVar="managePublicacaoDialog" responsive="true">
+                            <p:outputPanel id="manage-publicacao-content" class="ui-fluid">
+                                <p:outputPanel rendered="#{not empty novaPublicacaoController.selectedPublicacao}">
+                                    <div class="field">
+                                        <p:outputLabel for="titulo">Titulo</p:outputLabel>
+                                        <p:inputText id="titulo" value="#{novaPublicacaoController.selectedPublicacao.titulo}" required="true" />
+                                    </div>
+                                    <div class="field">
+                                        <p:outputLabel for="conteudo">Conteúdo</p:outputLabel>
+                                        <p:inputTextarea id="conteudo" value="#{novaPublicacaoController.selectedPublicacao.conteudo}" />
+                                    </div>
+                                    <div class="field">
+                                        <p:outputLabel for="tipo">Tipo</p:outputLabel>
+                                        <p:selectOneRadio required="true" id="tipo" value="#{novaPublicacaoController.selectedPublicacao.tipo}" layout="responsive" columns="2">
+                                            <f:selectItem itemLabel="Notícia" itemValue="NOTICIA" />
+                                            <f:selectItem itemLabel="Edital" itemValue="EDITAL" />
+                                            <f:selectItem itemLabel="Orientações" itemValue="ORIENTACAO" />
+                                            <f:selectItem itemLabel="Gabaritos e Provas" itemValue="GABARITOEPROVA" />
+                                        </p:selectOneRadio>
+                                    </div>
+                                    <div class="field">
+                                        <input type="file" id="filepicker" name="filepicker" accept="image/*,.pdf" />
+                                    </div>
+                                </p:outputPanel>
+                            </p:outputPanel>
+
+                            <f:facet name="footer">
+                                <p:commandButton value="Adicionar" icon="pi pi-check" actionListener="#{novaPublicacaoController.savePublicacao}" update="manage-publicacao-content" process="manage-publicacao-content @this" />
+                                <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('managePublicacaoDialog').hide()" class="ui-button-secondary" />
+                            </f:facet>
+                        </p:dialog> 
+
+                        <p:confirmDialog widgetVar="deletePublicacaoDialog" showEffect="fade" width="300" message="Remover publicação?" header="Confirmação" severity="warn">
+                            <p:commandButton value="Sim" icon="pi pi-check" actionListener="#{novaPublicacaoController.deletePublicação}" process="@this" oncomplete="PF('deletePublicacaoDialog').hide()"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-button-secondary" icon="pi pi-times" onclick="PF('deletePublicacaoDialog').hide()" />
+                        </p:confirmDialog>
+
+                        <p:confirmDialog global="true" showEffect="fade" width="300">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-secondary" icon="pi pi-times" />
+                        </p:confirmDialog>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

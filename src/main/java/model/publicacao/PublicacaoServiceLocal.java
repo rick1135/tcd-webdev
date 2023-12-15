@@ -17,6 +17,6 @@ public interface PublicacaoServiceLocal {
     public List<Publicacao> getAllPublicacoes();
 
     public List<Publicacao> getPublicacoesByTipo(Publicacao.TipoPublicacao tipo);
-    
+
     public List<Publicacao> getNoticiasUltimosQuinzeDias();
 }

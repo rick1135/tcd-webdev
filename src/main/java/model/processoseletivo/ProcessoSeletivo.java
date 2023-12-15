@@ -3,15 +3,6 @@ package model.processoseletivo;
 import java.io.Serializable;
 import java.util.Date;
 import model.usuario.Usuario;
-import java.util.List;
-import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import java.time.LocalDate;
-import java.util.Date;
-import model.usuario.Usuario;
 
 import java.util.List;
 import java.util.Objects;
@@ -20,10 +11,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
@@ -44,7 +36,7 @@ import model.JpaEntity;
 @Entity
 public class ProcessoSeletivo extends JpaEntity implements Serializable {
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String nome;
 
     @Enumerated(EnumType.STRING)
@@ -58,9 +50,9 @@ public class ProcessoSeletivo extends JpaEntity implements Serializable {
 
     private String linkEdital;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "usuario_processo_seletivo",
+            name = "processoseletivo_usuario",
             joinColumns = @JoinColumn(name = "processo_seletivo_id"),
             inverseJoinColumns = @JoinColumn(name = "usuario_id")
     )

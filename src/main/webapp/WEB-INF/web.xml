@@ -56,12 +56,17 @@
     
     <security-role>
         <description>System administrator</description>
-        <role-name>admin</role-name>
+        <role-name>Administrador</role-name>
     </security-role>
     
     <security-role>
         <description>Common authenticated user</description>
-        <role-name>user</role-name>
+        <role-name>Candidato</role-name>
+    </security-role>
+    
+    <security-role>
+        <description>Common authenticated editor</description>
+        <role-name>Editor</role-name>
     </security-role>
     
     <security-constraint>
@@ -71,7 +76,7 @@
             <url-pattern>/app/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>admin</role-name>
+            <role-name>Administrador</role-name>
         </auth-constraint>
     </security-constraint>
     
@@ -84,8 +89,20 @@
             <url-pattern>/app/publicacaoDetail.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>admin</role-name>
-            <role-name>user</role-name>
+            <role-name>Administrador</role-name>
+            <role-name>Candidato</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <security-constraint>
+        <display-name>Editor Role</display-name>
+        <web-resource-collection>
+            <web-resource-name>Publicações</web-resource-name>
+            <url-pattern>/app/novaPublicacao.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Administrador</role-name>
+            <role-name>Editor</role-name>
         </auth-constraint>
     </security-constraint>
     

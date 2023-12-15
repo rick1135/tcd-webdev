@@ -1,26 +1,54 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
+
     <h:form>
-        <div class="card" style="padding: 0px">
-            <div class="grid" style="margin: 0px">
-                <div class="col-11">
-                    <p:commandButton value="Publicação" icon="pi pi-plus" rendered="#{usuarioController.authenticated and usuarioController.allowedToSeeAdmin}" action="#{topbarController.redirect('/app/publicacao.xhtml')}"/>
-                </div>
-                <div class="col">
-                    <div class="flex justify-content-end">
-                        <p:commandButton id="dynaButton" type="button" icon="pi pi-user" styleClass="rounded-button ui-button-info" />
-                        <p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom">
-                            <p:submenu label="#{usuarioController.authenticated ? usuarioController.currentUser.username : 'Visitante'}">
-                                <p:menuitem value="Login" icon="pi pi-sign-in" rendered="#{!usuarioController.authenticated}" action="#{topbarController.redirect('../login.xhtml')}"/>
-                                <p:menuitem value="Cadastro" icon="pi pi-plus" rendered="#{!usuarioController.authenticated}" action="#{topbarController.redirect('../cadastro.xhtml')}"/>
-                                <p:menuitem value="Participante" icon="pi pi-id-card" rendered="#{usuarioController.authenticated and usuarioController.allowedToSeeUser}" action="#{topbarController.redirect('../app/participante.xhtml')}"/>
-                                <p:menuitem value="Logout" action="#{usuarioController.logout()}" icon="pi pi-sign-out" rendered="#{usuarioController.authenticated}"/>
-                            </p:submenu>
-                        </p:menu>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <p:tabMenu>
+            <p:menuitem value="Início" outcome="/index" icon="pi pi-home" rendered="#{usuarioController.authenticated}"/>
+            <p:menuitem value="Participante" outcome="/app/participante" icon="pi pi-user" rendered="#{usuarioController.authenticated}"/>
+            <p:menuitem value="Publicações" outcome="/app/novaPublicacao" icon="pi pi-user-edit" rendered="#{usuarioController.authenticated and (usuarioController.allowedToSeeAdministrador or usuarioController.allowedToSeeEditor)}"/>
+            <p:menuitem value="Cadastro" onclick="PF('dlg1').show()" icon="pi pi-user-plus" rendered="#{usuarioController.authenticated and usuarioController.allowedToSeeAdministrador}"/>
+            <p:menuitem value="Login" outcome="/login" icon="pi pi-sign-in" rendered="#{!usuarioController.authenticated}"/>
+            <p:menuitem value="Logout" action="#{usuarioController.logout()}" icon="pi pi-sign-out" rendered="#{usuarioController.authenticated}" ajax="false"/>
+        </p:tabMenu>
+    </h:form>
+    <h:form>
+        <p:dialog header="Cadastrar Moderador" showEffect="fade" modal="true" widgetVar="dlg1" responsive="true" width="400">
+            <p:outputPanel id="manage-moderador-content" class="ui-fluid">
+                <p:outputPanel>
+                    <h:form>
+                        <div class="field">
+                            <p:outputLabel for="nome">Nome</p:outputLabel>
+                            <p:inputText id="nome" value="#{cadastroController.usuario.username}" required="true" />
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="email">Email</p:outputLabel>
+                            <p:inputText id="email" value="#{cadastroController.usuario.email}" />
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="pwd1">Senha</p:outputLabel>
+                            <p:password id="pwd1" value="#{cadastroController.usuario.password}" match="pwd2" label="Password 1" required="true" feedback="true"/>
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="pwd2">Confirme</p:outputLabel>
+                            <p:password id="pwd2" value="#{cadastroController.usuario.password}" label="Password 2" required="true"/>
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="funcao">Função</p:outputLabel>
+                            <p:selectOneRadio id="funcao" value="#{cadastroController.usuario.group}" layout="responsive" columns="2" required="true">
+                                <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+                                <f:selectItem itemLabel="Editor " itemValue="Editor" />
+                                <f:selectItem itemLabel="Candidato" itemValue="Candidato" />
+                            </p:selectOneRadio>
+                        </div>
+                    </h:form>
+                </p:outputPanel>
+            </p:outputPanel>
+
+            <f:facet name="footer">
+                <p:commandButton value="Cadastrar" action="#{cadastroController.cadastrar}"/>
+                <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('dlg1').hide()" class="ui-button-secondary" />
+            </f:facet>
+        </p:dialog> 
     </h:form>
 </ui:composition>

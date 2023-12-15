@@ -4,6 +4,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import model.usuario.Usuario;
 
 /**
  *
@@ -15,7 +16,6 @@ public class ProcessoSeletivoService implements ProcessoSeletivoServiceLocal {
     @PersistenceContext
     private EntityManager entityManager;
 
-    // Method to save or update a ProcessoSeletivo
     public void save(ProcessoSeletivo processoSeletivo) {
         if (processoSeletivo.getId() != null && entityManager.contains(processoSeletivo)) {
             entityManager.merge(processoSeletivo);
@@ -24,21 +24,34 @@ public class ProcessoSeletivoService implements ProcessoSeletivoServiceLocal {
         }
     }
 
-    // Method to find all ProcessoSeletivo
     public List<ProcessoSeletivo> findAll() {
         return entityManager.createQuery("SELECT p FROM ProcessoSeletivo p", ProcessoSeletivo.class)
                 .getResultList();
     }
 
-    // Method to find a specific ProcessoSeletivo by ID
     public ProcessoSeletivo findById(Long id) {
         return entityManager.find(ProcessoSeletivo.class, id);
     }
 
-    // Method to find all ProcessoSeletivo where a specific Usuario is a candidate
     public List<ProcessoSeletivo> findByUsuarioId(Long usuarioId) {
         return entityManager.createQuery("SELECT p FROM ProcessoSeletivo p JOIN p.candidatos c WHERE c.id = :usuarioId", ProcessoSeletivo.class)
                 .setParameter("usuarioId", usuarioId)
                 .getResultList();
+    }
+
+    public void addUsuarioToProcessoSeletivo(Usuario usuario, long processoSeletivoId) {
+        ProcessoSeletivo processoSeletivo = entityManager.find(ProcessoSeletivo.class, processoSeletivoId);
+
+        if (processoSeletivo != null) {
+            processoSeletivo.getCandidatos().add(usuario);
+
+            entityManager.merge(processoSeletivo);
+        } else {
+            System.out.println("Processo seletivo não encontrado com o ID: " + processoSeletivoId);
+        }
+    }
+
+    public void salvarNovoProcessoSeletivo(ProcessoSeletivo processoSeletivo) {
+        entityManager.persist(processoSeletivo);
     }
 }

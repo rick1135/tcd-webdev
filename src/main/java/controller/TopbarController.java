@@ -30,7 +30,6 @@ public class TopbarController implements Serializable {
     public void init() {
         model = new DefaultMenuModel();
 
-        //First submenu
         DefaultSubMenu firstSubmenu = DefaultSubMenu.builder()
                 .label("Options")
                 .expanded(true)

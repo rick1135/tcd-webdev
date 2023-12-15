@@ -11,10 +11,8 @@ import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
 @Named
 @DatabaseIdentityStoreDefinition(
         dataSourceLookup = "java:/ProcessosSeletivosDS",
-        callerQuery = "select password from usuario "
-        + "where username = ?",
-        groupsQuery = "select user_group from usuario "
-        + "where username = ?",
+        callerQuery = "select password from usuario where email = ?",
+        groupsQuery = "select user_group from usuario where email = ?",
         hashAlgorithm = Pbkdf2PasswordHash.class,
         hashAlgorithmParameters = {
             "Pbkdf2PasswordHash.Iterations=3071",
@@ -34,7 +32,7 @@ public class ApplicationConfig {
 
     public String[] getDyna() {
         return new String[]{
-            "Pbkdf2PasswordHash.Algorithm=PBKDF2WithHmacSHA512", 
+            "Pbkdf2PasswordHash.Algorithm=PBKDF2WithHmacSHA512",
             "Pbkdf2PasswordHash.SaltSizeBytes=64"};
     }
 }
