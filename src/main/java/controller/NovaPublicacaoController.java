@@ -15,6 +15,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -31,6 +32,7 @@ import model.processoseletivo.Fase;
 import model.processoseletivo.ProcessoSeletivo;
 import model.publicacao.Publicacao;
 import model.publicacao.PublicacaoServiceLocal;
+import model.usuario.Usuario;
 import util.TwitterBean;
 
 @Named
@@ -158,7 +160,14 @@ public class NovaPublicacaoController implements Serializable {
                 ProcessoSeletivo processoSeletivo = new ProcessoSeletivo();
                 processoSeletivo.setFase(Fase.INSCRICAO);
                 this.selectedPublicacao.setProcessoSeletivo(processoSeletivo);
+            }else{
+                // TODO temporario
+                ProcessoSeletivo processoSeletivo = new ProcessoSeletivo();
+                List<Usuario> candidatos = new ArrayList<>();
+                processoSeletivo.setCandidatos(candidatos);
+                this.selectedPublicacao.setProcessoSeletivo(processoSeletivo);
             }
+                
             this.publicacoes.add(this.selectedPublicacao);
             publicacaoService.savePublicacao(this.selectedPublicacao);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Publicação Adicionada"));

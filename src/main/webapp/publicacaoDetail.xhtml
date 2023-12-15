@@ -22,7 +22,9 @@
                     <p:commandButton value="Participar" 
                                      action="#{publicacaoDetailController.addCandidato(usuarioController.currentUser)}"
                                      update=":form:growl" 
-                                     rendered="#{not publicacaoDetailController.isUserParticipante(usuarioController.currentUser)}"/>
+                                     rendered="#{publicacaoDetailController.publicacao.tipo == 'EDITAL' 
+                                                 and not publicacaoDetailController.isUserParticipante(usuarioController.currentUser)}"/>
+
 
                 </div>
                 <p:divider layout="horizontal" rendered="#{not empty publicacaoDetailController.publicacao.fileMetadata}"/>

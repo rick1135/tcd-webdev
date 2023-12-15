@@ -48,7 +48,6 @@ public class ParticipanteController implements Serializable {
         if (currentUser != null) {
             if (currentUser.getNewsletter()) {
                 newsletter = publicacaoService.getNoticiasUltimosQuinzeDias();
-                System.out.println("Newsletter carregada: " + newsletter.get(0));
             }
             processosSeletivos = processoService.findByUsuarioId(currentUser.getId());
         } else {
