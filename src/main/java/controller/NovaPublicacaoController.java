@@ -115,8 +115,8 @@ public class NovaPublicacaoController implements Serializable {
                 fileMetadata.setFileName(fileName);
                 fileMetadata.setFilePath(basePath + fileName);
                 fileMetadata.setFileSize(file.length());
-                fileMetadata.setMimeType(Files.probeContentType(file.toPath())); // Get MIME type
-                fileMetadata.setHashCode(computeFileHash(file)); // Compute file hash if needed
+                fileMetadata.setMimeType(Files.probeContentType(file.toPath())); 
+                fileMetadata.setHashCode(computeFileHash(file));
 
                 context.addMessage(null, new FacesMessage("File upload was successful."));
             } catch (IOException e) {

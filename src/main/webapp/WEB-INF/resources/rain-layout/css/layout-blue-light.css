@@ -192,7 +192,7 @@ a {
   flex-direction: column;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  min-height: 90vh;
+  min-height: 96vh;
 }
 
 .layout-mask {
@@ -2992,7 +2992,7 @@ a {
   }
 }
 .layout-footer {
-  padding: 16px 80px;
+  padding: 20px 80px;
   border-top: solid 1px #ebedef;
 }
 .layout-footer span {
